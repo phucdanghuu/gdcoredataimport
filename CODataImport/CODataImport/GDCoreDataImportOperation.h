@@ -7,12 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#define kIS_SHOW_ERROR NO
-
-#define GGCDLOG(__FORMAT__, ...) \
-  if (kIS_SHOW_ERROR) \
-  CLSNSLog((@"%s line %d $ " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__) \
+#import <CoreData/CoreData.h>
 
 
 

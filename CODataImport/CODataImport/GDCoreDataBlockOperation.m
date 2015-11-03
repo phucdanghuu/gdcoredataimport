@@ -7,6 +7,7 @@
 //
 
 #import "GDCoreDataBlockOperation.h"
+#import "DataImport.h"
 
 @implementation GDCoreDataBlockOperation
 
@@ -15,10 +16,10 @@
     GDCoreDataBlockOperation __weak *ws = self;
     [super addExecutionBlock:^{
         if (block) {
-            CLSNSLog(@"--start-- %@",ws);
+            GGCDLOG(@"--start-- %@",ws);
             block();
         }
-        CLSNSLog(@"--end---- %@",ws);
+        GGCDLOG(@"--end---- %@",ws);
 
         void (^completionBlockWithResults)(NSArray *results) = ws.completionBlockWithResults;
         dispatch_async(dispatch_get_main_queue(), ^{

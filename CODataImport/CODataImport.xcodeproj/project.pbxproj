@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E84B7C01BE76E8F00BB5446 /* COCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E84B7BB1BE76E8F00BB5446 /* COCoreDataBlockOperation.m */; };
-		6E84B7C11BE76E8F00BB5446 /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E84B7BD1BE76E8F00BB5446 /* COCoreDataImportOperation.m */; };
-		6E84B7C21BE76E8F00BB5446 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E84B7BF1BE76E8F00BB5446 /* COCoreDataQueue.m */; };
+		6E2229661BE85D3C009A0C50 /* GDCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229611BE85D3C009A0C50 /* GDCoreDataBlockOperation.m */; };
+		6E2229671BE85D3C009A0C50 /* GDCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229631BE85D3C009A0C50 /* GDCoreDataImportOperation.m */; };
+		6E2229681BE85D3C009A0C50 /* GDCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* GDCoreDataQueue.m */; };
 		6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
@@ -26,14 +26,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6E2229601BE85D3C009A0C50 /* GDCoreDataBlockOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCoreDataBlockOperation.h; sourceTree = "<group>"; };
+		6E2229611BE85D3C009A0C50 /* GDCoreDataBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCoreDataBlockOperation.m; sourceTree = "<group>"; };
+		6E2229621BE85D3C009A0C50 /* GDCoreDataImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCoreDataImportOperation.h; sourceTree = "<group>"; };
+		6E2229631BE85D3C009A0C50 /* GDCoreDataImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCoreDataImportOperation.m; sourceTree = "<group>"; };
+		6E2229641BE85D3C009A0C50 /* GDCoreDataQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDCoreDataQueue.h; sourceTree = "<group>"; };
+		6E2229651BE85D3C009A0C50 /* GDCoreDataQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDCoreDataQueue.m; sourceTree = "<group>"; };
 		6E54870B1BB8F79C003E0D0A /* libCODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCODataImport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E84B7B91BE76E8F00BB5446 /* DataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DataImport.h; path = ../../../DataImport/DataImport/DataImport.h; sourceTree = "<group>"; };
-		6E84B7BA1BE76E8F00BB5446 /* COCoreDataBlockOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COCoreDataBlockOperation.h; path = ../../../DataImport/DataImport/COCoreDataBlockOperation.h; sourceTree = "<group>"; };
-		6E84B7BB1BE76E8F00BB5446 /* COCoreDataBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = COCoreDataBlockOperation.m; path = ../../../DataImport/DataImport/COCoreDataBlockOperation.m; sourceTree = "<group>"; };
-		6E84B7BC1BE76E8F00BB5446 /* COCoreDataImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COCoreDataImportOperation.h; path = ../../../DataImport/DataImport/COCoreDataImportOperation.h; sourceTree = "<group>"; };
-		6E84B7BD1BE76E8F00BB5446 /* COCoreDataImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = COCoreDataImportOperation.m; path = ../../../DataImport/DataImport/COCoreDataImportOperation.m; sourceTree = "<group>"; };
-		6E84B7BE1BE76E8F00BB5446 /* COCoreDataQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = COCoreDataQueue.h; path = ../../../DataImport/DataImport/COCoreDataQueue.h; sourceTree = "<group>"; };
-		6E84B7BF1BE76E8F00BB5446 /* COCoreDataQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = COCoreDataQueue.m; path = ../../../DataImport/DataImport/COCoreDataQueue.m; sourceTree = "<group>"; };
 		6E84B7C31BE76F1B00BB5446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -69,13 +69,13 @@
 		6E54870D1BB8F79C003E0D0A /* CODataImport */ = {
 			isa = PBXGroup;
 			children = (
+				6E2229601BE85D3C009A0C50 /* GDCoreDataBlockOperation.h */,
+				6E2229611BE85D3C009A0C50 /* GDCoreDataBlockOperation.m */,
+				6E2229621BE85D3C009A0C50 /* GDCoreDataImportOperation.h */,
+				6E2229631BE85D3C009A0C50 /* GDCoreDataImportOperation.m */,
+				6E2229641BE85D3C009A0C50 /* GDCoreDataQueue.h */,
+				6E2229651BE85D3C009A0C50 /* GDCoreDataQueue.m */,
 				6E84B7B91BE76E8F00BB5446 /* DataImport.h */,
-				6E84B7BA1BE76E8F00BB5446 /* COCoreDataBlockOperation.h */,
-				6E84B7BB1BE76E8F00BB5446 /* COCoreDataBlockOperation.m */,
-				6E84B7BC1BE76E8F00BB5446 /* COCoreDataImportOperation.h */,
-				6E84B7BD1BE76E8F00BB5446 /* COCoreDataImportOperation.m */,
-				6E84B7BE1BE76E8F00BB5446 /* COCoreDataQueue.h */,
-				6E84B7BF1BE76E8F00BB5446 /* COCoreDataQueue.m */,
 			);
 			path = CODataImport;
 			sourceTree = "<group>";
@@ -136,9 +136,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6E84B7C11BE76E8F00BB5446 /* COCoreDataImportOperation.m in Sources */,
-				6E84B7C01BE76E8F00BB5446 /* COCoreDataBlockOperation.m in Sources */,
-				6E84B7C21BE76E8F00BB5446 /* COCoreDataQueue.m in Sources */,
+				6E2229671BE85D3C009A0C50 /* GDCoreDataImportOperation.m in Sources */,
+				6E2229661BE85D3C009A0C50 /* GDCoreDataBlockOperation.m in Sources */,
+				6E2229681BE85D3C009A0C50 /* GDCoreDataQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
