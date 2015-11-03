@@ -4,7 +4,7 @@
 //
 //  Created by Gia on 8/4/14.
 //  Copyright (c) 2014 cogini. All rights reserved.
-//
+// version 0.2
 
 #import <Foundation/Foundation.h>
 
