@@ -1,3 +1,5 @@
 platform :ios, "7.0"
 
 pod 'MagicalRecord', '~> 2.3'
+pod 'Fabric', '1.5.5'
+pod 'Crashlytics', '3.3.4'

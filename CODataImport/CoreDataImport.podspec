@@ -16,4 +16,6 @@ Pod::Spec.new do |s|
   s.frameworks = 'UIKit', 'CoreData'
   s.module_name = 'CODataImport'
   s.dependency 'MagicalRecord', '~> 2.3'
+  s.dependency 'Crashlytics', '3.3.4'
+  s.dependency 'Fabric', '1.5.5'
 end
