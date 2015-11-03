@@ -6,9 +6,9 @@
 //  Copyright (c) 2014 cogini. All rights reserved.
 //
 
-#import "GDCoreDataQueue.h"
+#import "COCoreDataQueue.h"
 
-@implementation GDCoreDataQueue
+@implementation COCoreDataQueue
 
 - (id)init {
     self = [super init];

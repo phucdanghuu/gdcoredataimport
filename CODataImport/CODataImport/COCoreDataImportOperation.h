@@ -12,7 +12,7 @@
 
 
 
-@interface GDCoreDataImportOperation : NSOperation
+@interface COCoreDataImportOperation : NSOperation
 
 @property (nonatomic, strong, readonly) NSArray *results;
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results);
@@ -41,7 +41,7 @@
 
 
 
-@interface GDCoreDataMapping : NSObject
+@interface COCoreDataMapping : NSObject
 
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSString *destinationKey;

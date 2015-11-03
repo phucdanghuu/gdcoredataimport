@@ -6,14 +6,14 @@
 //  Copyright (c) 2014 cogini. All rights reserved.
 //
 
-#import "GDCoreDataBlockOperation.h"
+#import "COCoreDataBlockOperation.h"
 #import "DataImport.h"
 
-@implementation GDCoreDataBlockOperation
+@implementation COCoreDataBlockOperation
 
 
 - (void)addExecutionBlock:(void (^)(void))block {
-    GDCoreDataBlockOperation __weak *ws = self;
+    COCoreDataBlockOperation __weak *ws = self;
     [super addExecutionBlock:^{
         if (block) {
             GGCDLOG(@"--start-- %@",ws);

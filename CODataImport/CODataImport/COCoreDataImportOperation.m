@@ -6,10 +6,10 @@
 //  Copyright (c) 2014 cogini. All rights reserved.
 //
 
-#import "GDCoreDataImportOperation.h"
+#import "COCoreDataImportOperation.h"
 
 
-@interface GDCoreDataImportOperation ()
+@interface COCoreDataImportOperation ()
 
 @property (nonatomic, strong) Class dataClass;
 @property (nonatomic, strong) NSArray *array;
@@ -33,7 +33,7 @@
 
 @end
 
-@implementation GDCoreDataImportOperation
+@implementation COCoreDataImportOperation
 
 - (id)init {
   self = [super init];
@@ -219,14 +219,14 @@
 - (NSArray *)importObjectsOfClass:(Class)class fromArray:(NSArray *)array {
 
   NSMutableArray *results = [NSMutableArray arrayWithCapacity:array.count];
-  NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[GDCoreDataImportOperation primaryKeyFromClass:class]
+  NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[COCoreDataImportOperation primaryKeyFromClass:class]
                                                                ascending:YES];
   if (array != nil && array.count != 0) {
     array = [array sortedArrayUsingDescriptors:@[descriptor]];
-    NSArray *ids = [array valueForKey:[GDCoreDataImportOperation primaryKeyFromClass:class]];
+    NSArray *ids = [array valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
     NSArray *objectWithIds = [self managedObjectsForClass:class inArrayOfIds:ids];
 
-    NSString *primaryKey = [GDCoreDataImportOperation primaryKeyFromClass:class];
+    NSString *primaryKey = [COCoreDataImportOperation primaryKeyFromClass:class];
 
     NSInteger objectCounter = 0;
     for (NSDictionary *data in array) {
@@ -276,11 +276,11 @@
 }
 
 - (NSManagedObject *)importObjectOfClass:(Class)class fromData:(NSDictionary *)data {
-  id objectId = [data valueForKey:[GDCoreDataImportOperation primaryKeyFromClass:class]];
+  id objectId = [data valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
 
   NSManagedObject *object = nil;
   if (objectId != nil) {
-    object = [class MR_findFirstByAttribute:[GDCoreDataImportOperation primaryKeyFromClass:class]
+    object = [class MR_findFirstByAttribute:[COCoreDataImportOperation primaryKeyFromClass:class]
                                   withValue:objectId
                                   inContext:self.context];
   }
@@ -291,7 +291,7 @@
 
     if (objectId) {
       //Set primary key
-      [object setValue:objectId forKey:[GDCoreDataImportOperation primaryKeyFromClass:class]];
+      [object setValue:objectId forKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
     }
 
   }
@@ -306,7 +306,7 @@
 
 - (NSArray *)objectsAfterAssignedIds:(NSArray *)ids forObjects:(NSArray *)objects {
   Class class = [objects[0] class];
-  NSString *primaryId = [GDCoreDataImportOperation primaryKeyFromClass:class];
+  NSString *primaryId = [COCoreDataImportOperation primaryKeyFromClass:class];
   NSArray *alreadyAssignedIds = [[self managedObjectsForClass:class inArrayOfIds:ids] valueForKey:primaryId];
 
   NSMutableArray *willBeAssignedIds = [NSMutableArray arrayWithArray:ids];
@@ -331,9 +331,9 @@
     return;
   }
 
-  NSString *classNameOfAttribute = [GDCoreDataImportOperation classNameOfAttribute:key object:managedObject];
-  NSString *classNameOfRelationship = [GDCoreDataImportOperation classNameOfRelationship:key object:managedObject];
-  NSString *classNameOfMappingRelationship = [GDCoreDataImportOperation classNameOfMappingRelationship:key object:managedObject];
+  NSString *classNameOfAttribute = [COCoreDataImportOperation classNameOfAttribute:key object:managedObject];
+  NSString *classNameOfRelationship = [COCoreDataImportOperation classNameOfRelationship:key object:managedObject];
+  NSString *classNameOfMappingRelationship = [COCoreDataImportOperation classNameOfMappingRelationship:key object:managedObject];
   if (classNameOfRelationship.length != 0) {
 
     // relationship
@@ -348,14 +348,14 @@
 
     }
   }else if (classNameOfMappingRelationship.length != 0) {
-    NSDictionary *idDic = @{[GDCoreDataImportOperation primaryKeyFromClass:NSClassFromString(classNameOfMappingRelationship)]: value};
+    NSDictionary *idDic = @{[COCoreDataImportOperation primaryKeyFromClass:NSClassFromString(classNameOfMappingRelationship)]: value};
     NSManagedObject *object = [self importObjectOfClass:NSClassFromString(classNameOfMappingRelationship) fromData:idDic];
     if (object) {
-      [managedObject setValue:object forKey:[GDCoreDataImportOperation destinationKeyFromMappingKey:key object:managedObject]];
+      [managedObject setValue:object forKey:[COCoreDataImportOperation destinationKeyFromMappingKey:key object:managedObject]];
     }
   }else if (classNameOfAttribute.length != 0) {
     if ([classNameOfAttribute isEqualToString:@"NSDate"]) {
-      NSDate *date = [GDCoreDataImportOperation dateFromString:value formatDate:[GDCoreDataImportOperation defaultDateFormat]];
+      NSDate *date = [COCoreDataImportOperation dateFromString:value formatDate:[COCoreDataImportOperation defaultDateFormat]];
       [managedObject setValue:date forKey:key];
     }else if([classNameOfAttribute isEqualToString:@"NSNumber"]&&
              ![value isEqual:[NSNull null]]) {
@@ -435,13 +435,13 @@
 }
 
 + (NSString *)destinationKeyFromMappingKey:(NSString *)key object:(NSManagedObject *)object {
-  NSDictionary *mapping = [GDCoreDataImportOperation additionalMappingFromClass:object.class];
+  NSDictionary *mapping = [COCoreDataImportOperation additionalMappingFromClass:object.class];
   NSString *destinationKey = mapping[key];
   return destinationKey;
 }
 
 + (NSString *)classNameOfMappingRelationship:(NSString *)key object:(NSManagedObject *)object {
-  NSString *destinationKey = [GDCoreDataImportOperation destinationKeyFromMappingKey:key object:object];
+  NSString *destinationKey = [COCoreDataImportOperation destinationKeyFromMappingKey:key object:object];
   if (destinationKey.length > 0) {
     return [self classNameOfRelationship:destinationKey object:object];
   }else {
@@ -482,9 +482,9 @@
 
 - (NSArray *)managedObjectsForClass:(Class)class inArrayOfIds:(NSArray *)idArray {
   NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@",
-                            [GDCoreDataImportOperation primaryKeyFromClass:class],
+                            [COCoreDataImportOperation primaryKeyFromClass:class],
                             idArray];
-  NSArray *results = [class MR_findAllSortedBy:[GDCoreDataImportOperation primaryKeyFromClass:class]
+  NSArray *results = [class MR_findAllSortedBy:[COCoreDataImportOperation primaryKeyFromClass:class]
                                      ascending:YES
                                  withPredicate:predicate
                                      inContext:self.context];
@@ -495,7 +495,7 @@
   if ([(NSObject *)class respondsToSelector:@selector(primaryKey)]) {
     return [(id)class primaryKey];
   }else {
-    return [GDCoreDataImportOperation primaryKey];
+    return [COCoreDataImportOperation primaryKey];
   }
 }
 

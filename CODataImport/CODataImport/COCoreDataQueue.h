@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GDCoreDataQueue : NSOperationQueue
+@interface COCoreDataQueue : NSOperationQueue
 
 
 @end

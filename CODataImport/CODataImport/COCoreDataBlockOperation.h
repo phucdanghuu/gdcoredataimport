@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GDCoreDataBlockOperation : NSBlockOperation
+@interface COCoreDataBlockOperation : NSBlockOperation
 
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results);
 
