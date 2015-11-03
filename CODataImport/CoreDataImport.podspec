@@ -18,4 +18,9 @@ Pod::Spec.new do |s|
   s.dependency 'MagicalRecord', '~> 2.3'
   s.dependency 'Crashlytics', '3.3.4'
   s.dependency 'Fabric', '1.5.5'
+
+  s.pod_target_xcconfig = {
+    'FRAMEWORK_SEARCH_PATHS' => '$(inherited) $(PODS_ROOT)/Crashlytics',
+    'OTHER_LDFLAGS'          => '$(inherited) -undefined dynamic_lookup'
+  }
 end
