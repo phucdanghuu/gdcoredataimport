@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+#import "DataImport.h"
 
 
 
@@ -45,5 +45,7 @@
 
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSString *destinationKey;
+
+- (id)mapping;
 
 @end
