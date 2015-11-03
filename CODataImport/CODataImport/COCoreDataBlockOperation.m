@@ -7,7 +7,6 @@
 //
 
 #import "COCoreDataBlockOperation.h"
-#import "DataImport.h"
 
 @implementation COCoreDataBlockOperation
 

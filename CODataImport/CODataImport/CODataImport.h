@@ -18,6 +18,10 @@ FOUNDATION_EXPORT const unsigned char DataImportVersionString[];
 
 #import <CoreData/CoreData.h>
 #import <MagicalRecord/MagicalRecord.h>
+#import "COCoreDataBlockOperation.h"
+#import "COCoreDataImportOperation.h"
+#import "COCoreDataQueue.h"
+
 
 #define kIS_SHOW_ERROR NO
 
