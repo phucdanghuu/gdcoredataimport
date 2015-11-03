@@ -11,7 +11,6 @@
 
 
 
-
 @interface COCoreDataImportOperation : NSOperation
 
 @property (nonatomic, strong, readonly) NSArray *results;
@@ -36,6 +35,7 @@
 + (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat;
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat;
 
++ (id)mapping;
 
 @end
 
@@ -45,7 +45,5 @@
 
 @property (nonatomic, strong) NSString *key;
 @property (nonatomic, strong) NSString *destinationKey;
-
-- (id)mapping;
 
 @end
