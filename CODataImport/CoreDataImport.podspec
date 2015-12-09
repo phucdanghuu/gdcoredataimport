@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "CODataImport"
-  s.version          = "0.3.1"
+  s.version          = "0.3.2"
   s.summary          = "The Cogini Data Import Data."
   s.homepage         = "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git"
   s.license          = 'Code is MIT, then custom font licenses.'
