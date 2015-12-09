@@ -5,7 +5,7 @@ Pod::Spec.new do |s|
   s.homepage         = "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git"
   s.license          = 'Code is MIT, then custom font licenses.'
   s.author           = { "ttkien" => "kien.tran@cogini.com" }
-  s.source           = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :tag => "0.3.1" }
+  s.source           = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :tag => "0.3.2" }
   s.social_media_url = 'https://www.facebook.com/ttkien.it'
 
   s.platform     = :ios, '7.0'
