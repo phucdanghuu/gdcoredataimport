@@ -14,6 +14,8 @@
 @interface COCoreDataImportOperation : NSOperation
 
 @property (nonatomic, strong, readonly) NSArray *results;
+@property (nonatomic, assign) BOOL shouldNotSaveToPersistentStore;
+
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results);
 
 - (id)initWithClass:(Class)class array:(NSArray *)array;

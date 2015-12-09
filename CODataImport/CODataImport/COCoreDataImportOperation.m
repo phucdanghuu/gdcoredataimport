@@ -170,8 +170,10 @@
                 GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:date]);
             }
         }else {
-            if (!self.isCancelled) {
+            if (!self.isCancelled && self.shouldNotSaveToPersistentStore) {
                 NSDate *date = [NSDate date];
+
+
                 [self.defaultContext MR_saveToPersistentStoreAndWait];
                 GGCDLOG(@"save defaul context with time %f",[[NSDate date] timeIntervalSinceDate:date]);
             }
