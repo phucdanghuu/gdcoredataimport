@@ -34,6 +34,8 @@
 
 + (NSArray *)objsInContext:(NSManagedObjectContext *)context fromMainThreadObjs:(NSArray *)objs;
 + (NSString *)defaultDateFormat;
++ (void) setDefaultDateFormat:(NSString *)dateFormat;
+
 + (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat;
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat;
 

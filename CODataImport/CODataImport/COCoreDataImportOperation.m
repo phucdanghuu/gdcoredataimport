@@ -55,10 +55,10 @@
     self = [self initWithClass:class array:array];
     if (self) {
         self.willCleanupEverything = willCleanupEverything;
-        
+
         self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
         [self.context setUndoManager:nil];
-        
+
     }
     return self;
 }
@@ -67,7 +67,7 @@
     self = [self initWithClass:class];
     if (self) {
         self.array = array;
-        
+
         self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
         [self.context setUndoManager:nil];
     }
@@ -77,7 +77,7 @@
     self = [self initWithClass:class];
     if (self) {
         self.dictionary = dictionary;
-        
+
         self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
         [self.context setUndoManager:nil];
     }
@@ -100,7 +100,7 @@
     if (self) {
         self.isCleanAndCreate = isCleanAndCreate;
         self.array = array;
-        
+
         self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
         [self.context setUndoManager:nil];
     }
@@ -119,7 +119,7 @@
 - (id)initToSaveDefaultContext {
     self = [self init];
     if (self) {
-        
+
     }
     return self;
 }
@@ -129,16 +129,16 @@
         self.date = [NSDate date];
         GGCDLOG(@"--start-- %@",self);
         self.defaultContext = [NSManagedObjectContext MR_defaultContext];
-        
+
         if (self.willCleanupEverything||self.isCleanAndCreate) {
             [self.dataClass MR_truncateAllInContext:self.context];
         }
-        
+
         if (self.dataClass) {
             if (self.isCleanAndCreate) {
                 self.results = [self createObjectsOfClass:self.dataClass fromArray:self.array];
             }else {
-                
+
                 if (self.isNoId) {
                     if(self.dictionary) {
                         self.results = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
@@ -151,7 +151,7 @@
                     }
                 }
             }
-            
+
             if (!self.isCancelled) {
                 NSDate *date = [NSDate date];
                 [self.context MR_saveToPersistentStoreAndWait];
@@ -183,7 +183,7 @@
     dispatch_async(dispatch_get_main_queue(), ^{
         if (!self.isCancelled) {
             if (self.completionBlockWithResults) {
-                
+
                 if (self.willReturnCompletionBlockWithMainThreadObjects) {
                     self.completionBlockWithResults(self.results);
                 }else {
@@ -205,7 +205,7 @@
 
 - (NSArray *)createObjectsOfClass:(Class)class fromArray:(NSArray *)array {
     NSMutableArray *results = [NSMutableArray arrayWithCapacity:array.count];
-    
+
     for (NSDictionary *data in array) {
         if (self.isCancelled) {
             break;
@@ -214,24 +214,24 @@
         [self updateManagedObject:newObject withRecord:data];
         [results addObject:newObject];
     }
-    
+
     return results;
 }
 
 - (NSArray *)importObjectsOfClass:(Class)class fromArray:(NSArray *)array {
-    
+
     NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:array.count];
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[COCoreDataImportOperation primaryKeyFromClass:class]
                                                                  ascending:YES];
-    
+
     NSArray *sortedArray = nil;
     if (array != nil && array.count != 0) {
         sortedArray = [array sortedArrayUsingDescriptors:@[descriptor]];
         NSArray *ids = [sortedArray valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
         NSArray *objectWithIds = [self managedObjectsForClass:class inArrayOfIds:ids];
-        
+
         NSString *primaryKey = [COCoreDataImportOperation primaryKeyFromClass:class];
-        
+
         NSInteger objectCounter = 0;
         for (NSDictionary *data in sortedArray) {
             if (self.isCancelled) {
@@ -239,15 +239,15 @@
             }
             id objectId = [data valueForKey:primaryKey];
             BOOL willCreate = NO;
-            
+
             if (objectCounter < objectWithIds.count) {
                 NSManagedObject *object = objectWithIds[objectCounter];
-                
+
                 if ([object isDeleted]) {
                     GGCDLOG(@"object %@ has been deleted", object);
                     willCreate = YES;
                 } else {
-                    
+
                     if ([objectId isEqual:[object valueForKey:primaryKey]]) {
                         // do an update
                         [self updateManagedObject:object withRecord:data];
@@ -259,35 +259,35 @@
                 }
             }else {
                 willCreate = YES;
-                
+
             }
             if (willCreate) {
                 // create object with id objectId
                 GGCDLOG(@"will create %@", data);
                 NSManagedObject *newObject = [class MR_createInContext:self.context];
-                
+
                 if (objectId) {
                     [newObject setValue:objectId forKey:primaryKey];
                 }
-                
+
                 [self updateManagedObject:newObject withRecord:data];
                 [sortedResults addObject:newObject];
             }
         }
     }
-    
+
 
     NSMutableArray *results = [NSMutableArray array];
-    
+
     for (NSDictionary *obj in array) {
         id primaryValue = [obj objectForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
-        
+
         NSArray *arr = [self managedObjectsForClass:class inArrayOfIds:@[primaryValue]];
-        
+
         NSAssert([arr count] == 1, @"arr count must be equal 1");
-        
+
         [results addObjectsFromArray:arr];
-        
+
     }
 
     return results;
@@ -295,23 +295,23 @@
 
 - (NSManagedObject *)importObjectOfClass:(Class)class fromData:(NSDictionary *)data {
     id objectId = [data valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
-    
+
     NSManagedObject *object = nil;
     if (objectId != nil) {
         object = [class MR_findFirstByAttribute:[COCoreDataImportOperation primaryKeyFromClass:class]
                                       withValue:objectId
                                       inContext:self.context];
     }
-    
+
     if (!object) {
-        
+
         object = [class MR_createInContext:self.context];
-        
+
         if (objectId) {
             //Set primary key
             [object setValue:objectId forKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
         }
-        
+
     }
     [self updateManagedObject:object withRecord:data];
     return object;
@@ -326,10 +326,10 @@
     Class class = [objects[0] class];
     NSString *primaryId = [COCoreDataImportOperation primaryKeyFromClass:class];
     NSArray *alreadyAssignedIds = [[self managedObjectsForClass:class inArrayOfIds:ids] valueForKey:primaryId];
-    
+
     NSMutableArray *willBeAssignedIds = [NSMutableArray arrayWithArray:ids];
     [willBeAssignedIds removeObjectsInArray:alreadyAssignedIds];
-    
+
     for (id idObject in willBeAssignedIds) {
         if (self.isCancelled) {
             break;
@@ -348,22 +348,22 @@
     if (value == [NSNull null]) {
         return;
     }
-    
+
     NSString *classNameOfAttribute = [COCoreDataImportOperation classNameOfAttribute:key object:managedObject];
     NSString *classNameOfRelationship = [COCoreDataImportOperation classNameOfRelationship:key object:managedObject];
     NSString *classNameOfMappingRelationship = [COCoreDataImportOperation classNameOfMappingRelationship:key object:managedObject];
     if (classNameOfRelationship.length != 0) {
-        
+
         // relationship
         if ([value isKindOfClass:[NSDictionary class]]) {
             NSManagedObject *object = [self importObjectOfClass:NSClassFromString(classNameOfRelationship) fromData:value];
-            
+
             [managedObject setValue:object forKey:key];
         }else if([value isKindOfClass:[NSArray class]]) {
             NSSet *set = [NSSet setWithArray:[self importObjectsOfClass:NSClassFromString(classNameOfRelationship) fromArray:value]];
-            
+
             [managedObject setValue:set forKey:key];
-            
+
         }
     }else if (classNameOfMappingRelationship.length != 0) {
         NSDictionary *idDic = @{[COCoreDataImportOperation primaryKeyFromClass:NSClassFromString(classNameOfMappingRelationship)]: value};
@@ -406,7 +406,7 @@
             }
         }
     }
-    
+
 }
 
 - (void)addAdditionalObjectsArray:(NSArray *)dataArray forClass:(NSString *)className {
@@ -449,7 +449,7 @@
 + (NSString *)classNameOfRelationship:(NSString *)relationshipName object:(NSManagedObject *)object {
     NSEntityDescription *enDes = object.entity;
     return [[[[enDes relationshipsByName] valueForKey:relationshipName] destinationEntity] name];
-    
+
 }
 
 + (NSString *)destinationKeyFromMappingKey:(NSString *)key object:(NSManagedObject *)object {
@@ -480,27 +480,27 @@
     Class class = [objs.lastObject class];
     if ([self.context obtainPermanentIDsForObjects:objs error:&error]) {
 //        NSArray *newObjs = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self IN %@", [objs valueForKey:@"objectID"]] inContext:self.defaultContext];
-        
+
         NSMutableArray *results = [NSMutableArray array];
-        
+
         for (NSManagedObject *obj in objs) {
             id primaryValue = [obj valueForKey:@"objectID"];
-            
+
             NSArray *arr = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self = %@", primaryValue] inContext:self.defaultContext];
-            
+
             NSAssert([arr count] == 1, @"arr count must be equal 1");
-            
+
             [results addObjectsFromArray:arr];
-            
+
         }
-    
-        
+
+
         GGCDLOG(@"fetch main thread objs in %f",[[NSDate date] timeIntervalSinceDate:date]);
         return results;
     }else {
         GGCDLOG(@"%@",error);
     }
-    
+
     return nil;
 }
 
@@ -547,7 +547,9 @@
 #pragma mark - Data Conversion
 
 + (NSString *)defaultDateFormat {
-    return @"yyyy-MM-dd'T'HH:mm:ssZZZ";
+
+  return _dateFormat ? _dateFormat : @"yyyy-MM-dd'T'HH:mm:ssZZZ";
+
 }
 
 + (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat {
@@ -566,5 +568,13 @@
     formatter.dateFormat = dateFormat;
     return [formatter dateFromString:dateString];
 }
+
+static NSString *_dateFormat = nil;
+
++ (void) setDefaultDateFormat:(NSString *)dateFormat {
+
+  _dateFormat = dateFormat;
+}
+
 
 @end
