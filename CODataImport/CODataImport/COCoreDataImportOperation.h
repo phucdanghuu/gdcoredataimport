@@ -15,6 +15,7 @@
 
 @property (nonatomic, strong, readonly) NSArray *results;
 @property (nonatomic, assign) BOOL shouldNotSaveToPersistentStore;
+@property (nonatomic) BOOL willCleanupEverything;
 
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results);
 
@@ -22,6 +23,8 @@
 - (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
 // to create new object without id (so that we will wait for the id to arrive later
 - (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array;
+
 - (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate;
 

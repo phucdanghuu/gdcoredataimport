@@ -25,7 +25,6 @@
 @property (nonatomic, strong) NSMutableArray *relationshipArray;
 
 @property (nonatomic) BOOL willReturnCompletionBlockWithMainThreadObjects;
-@property (nonatomic) BOOL willCleanupEverything;
 @property (nonatomic) BOOL isCleanAndCreate;
 @property (nonatomic) BOOL isNoId;
 
@@ -94,6 +93,17 @@
     return self;
 }
 
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
+  self = [self initWithClass:class array:array];
+
+  if (self) {
+    self.isNoId = YES;
+    self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
+    [self.context setUndoManager:nil];
+  }
+
+  return self;
+}
 
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate {
     self = [self initWithClass:class];
@@ -142,6 +152,8 @@
                 if (self.isNoId) {
                     if(self.dictionary) {
                         self.results = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
+                    } else if (self.array) {
+                      self.results = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
                     }
                 }else {
                     if (self.array) {
@@ -259,18 +271,20 @@
                 }
             }else {
                 willCreate = YES;
-
             }
+
             if (willCreate) {
                 // create object with id objectId
                 GGCDLOG(@"will create %@", data);
-                NSManagedObject *newObject = [class MR_createInContext:self.context];
 
-                if (objectId) {
-                    [newObject setValue:objectId forKey:primaryKey];
-                }
-
-                [self updateManagedObject:newObject withRecord:data];
+               NSManagedObject *newObject = [self importObjectOfClass:class fromData:data];
+//                NSManagedObject *newObject = [class MR_createInContext:self.context];
+//
+//                if (objectId) {
+//                    [newObject setValue:objectId forKey:primaryKey];
+//                }
+//
+//                [self updateManagedObject:newObject withRecord:data];
                 [sortedResults addObject:newObject];
             }
         }
@@ -313,6 +327,7 @@
         }
 
     }
+
     [self updateManagedObject:object withRecord:data];
     return object;
 }
@@ -320,6 +335,20 @@
     NSManagedObject *object = [class MR_createInContext:self.context];
     [self updateManagedObject:object withRecord:data];
     return object;
+}
+
+- (NSArray *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array {
+
+  NSMutableArray *arrayOfObject = [NSMutableArray array];
+
+  for (NSDictionary *data in array) {
+    NSManagedObject *object = [class MR_createInContext:self.context];
+    [self updateManagedObject:object withRecord:data];
+
+    [arrayOfObject addObject:object];
+  }
+
+  return arrayOfObject;
 }
 
 - (NSArray *)objectsAfterAssignedIds:(NSArray *)ids forObjects:(NSArray *)objects {
