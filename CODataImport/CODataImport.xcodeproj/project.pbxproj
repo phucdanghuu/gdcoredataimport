@@ -24,6 +24,7 @@
 		6ED5E67A1C4CDA40002973EC /* COImportDataWithCleanUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E6791C4CDA40002973EC /* COImportDataWithCleanUp.m */; };
 		6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */; };
 		6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67E1C4CE4BD002973EC /* Room_Student.m */; };
+		6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD9E41C4E582F00D43085 /* TestingUtils.m */; };
 		78DBDC3298B6D2215B82BF6E /* libPods-CODataImportUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7A7D1ADB0B1D0FDF457769 /* libPods-CODataImportUnitTest.a */; };
 		C7ED7D7C9C6D20D53B51E843 /* libPods-CODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF6F1087FAE406D6ACFA230 /* libPods-CODataImport.a */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,8 @@
 		6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Room_Student+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6ED5E67D1C4CE4BD002973EC /* Room_Student.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Room_Student.h; sourceTree = "<group>"; };
 		6ED5E67E1C4CE4BD002973EC /* Room_Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Room_Student.m; sourceTree = "<group>"; };
+		6EDDD9E31C4E582F00D43085 /* TestingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingUtils.h; sourceTree = "<group>"; };
+		6EDDD9E41C4E582F00D43085 /* TestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingUtils.m; sourceTree = "<group>"; };
 		7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.release.xcconfig"; sourceTree = "<group>"; };
 		8FF6F1087FAE406D6ACFA230 /* libPods-CODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7A7D1ADB0B1D0FDF457769 /* libPods-CODataImportUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImportUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -122,6 +125,7 @@
 		6E1BF69B1C47619900E33462 /* CODataImportUnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				6EDDD9E21C4E580F00D43085 /* Utils */,
 				6E1BF6B41C47897E00E33462 /* Models */,
 				6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */,
 				6E1BF69E1C47619900E33462 /* Info.plist */,
@@ -185,6 +189,15 @@
 				6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */,
 			);
 			path = CODataImport;
+			sourceTree = "<group>";
+		};
+		6EDDD9E21C4E580F00D43085 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6EDDD9E31C4E582F00D43085 /* TestingUtils.h */,
+				6EDDD9E41C4E582F00D43085 /* TestingUtils.m */,
+			);
+			name = Utils;
 			sourceTree = "<group>";
 		};
 		F73F5B99B8AEBA8F3C8816CB /* Pods */ = {
@@ -376,6 +389,7 @@
 				6ED3DBB01C47A86000DA284B /* Student+CoreDataProperties.m in Sources */,
 				6ED3DBB21C47A86000DA284B /* Student.m in Sources */,
 				6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */,
+				6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */,
 				6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */,
 				6ED3DBAA1C47A84100DA284B /* Model.xcdatamodeld in Sources */,
 				6ED5E67A1C4CDA40002973EC /* COImportDataWithCleanUp.m in Sources */,

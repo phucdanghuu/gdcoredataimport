@@ -12,6 +12,7 @@
 #import "Student.h"
 #import "Room.h"
 #import "Room_Student.h"
+#import "TestingUtils.h"
 
 @interface CODataImportUnitTest : XCTestCase
 
@@ -19,33 +20,19 @@
 
 @implementation CODataImportUnitTest
 
+
 - (void)setUp {
   [super setUp];
-  // Put setup code here. This method is called before the invocation of each test method in the class.
-
-  NSLog(@"%@",[CODataImportUnitTest applicationDocumentsDirectory]);
-
-
-  [MagicalRecord setDefaultModelFromClass:[self class]];
-
-  [MagicalRecord setupCoreDataStackWithInMemoryStore];
-
-  [Student MR_truncateAll];
-  [Room MR_truncateAll];
-
-  [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+  [TestingUtils setUpTestingDatabase];
 }
 
-+ (NSString *) applicationDocumentsDirectory
-{
-  NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-  NSString *basePath = paths.firstObject;
-  return basePath;
-}
+
+
 
 - (void)tearDown {
   // Put teardown code here. This method is called after the invocation of each test method in the class.
   [super tearDown];
+  [TestingUtils cleanUpTestingDatabase];
 }
 
 - (void)testExample {
