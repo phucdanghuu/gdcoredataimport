@@ -544,6 +544,10 @@
     return @"id";
 }
 
++ (id)mapping {
+  return @{};
+}
+
 #pragma mark - Data Conversion
 
 + (NSString *)defaultDateFormat {
