@@ -16,7 +16,7 @@
 @implementation TestingUtils
 
 
-- (void)setUpTestingDatabase {
++ (void)setUpTestingDatabase {
   // Put setup code here. This method is called before the invocation of each test method in the class.
 
   NSLog(@"%@",[TestingUtils applicationDocumentsDirectory]);
@@ -33,7 +33,7 @@
 }
 
 
-- (void)cleanUpTestingDatabase {
++ (void)cleanUpTestingDatabase {
   [MagicalRecord cleanUp];
 }
 

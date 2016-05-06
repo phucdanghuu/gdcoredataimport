@@ -218,12 +218,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E1BF6A41C47619900E33462 /* Build configuration list for PBXNativeTarget "CODataImportUnitTest" */;
 			buildPhases = (
-				2F9E1A973EE0F01E223F997D /* Check Pods Manifest.lock */,
+				2F9E1A973EE0F01E223F997D /* 📦 Check Pods Manifest.lock */,
 				6E1BF6961C47619900E33462 /* Sources */,
 				6E1BF6971C47619900E33462 /* Frameworks */,
 				6E1BF6981C47619900E33462 /* Resources */,
-				1F6CAEA6FA21958AB5C8C4EC /* Embed Pods Frameworks */,
-				7DCA5159D397CF806EE16C79 /* Copy Pods Resources */,
+				1F6CAEA6FA21958AB5C8C4EC /* 📦 Embed Pods Frameworks */,
+				7DCA5159D397CF806EE16C79 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -239,11 +239,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E5487141BB8F79C003E0D0A /* Build configuration list for PBXNativeTarget "CODataImport" */;
 			buildPhases = (
-				8AFB5A57A3C6F943AA1315BB /* Check Pods Manifest.lock */,
+				8AFB5A57A3C6F943AA1315BB /* 📦 Check Pods Manifest.lock */,
 				6E5487071BB8F79C003E0D0A /* Sources */,
 				6E5487081BB8F79C003E0D0A /* Frameworks */,
 				6E5487091BB8F79C003E0D0A /* CopyFiles */,
-				D689648DA40C34CE67635225 /* Copy Pods Resources */,
+				D689648DA40C34CE67635225 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -300,14 +300,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1F6CAEA6FA21958AB5C8C4EC /* Embed Pods Frameworks */ = {
+		1F6CAEA6FA21958AB5C8C4EC /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -315,14 +315,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		2F9E1A973EE0F01E223F997D /* Check Pods Manifest.lock */ = {
+		2F9E1A973EE0F01E223F997D /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -330,14 +330,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		7DCA5159D397CF806EE16C79 /* Copy Pods Resources */ = {
+		7DCA5159D397CF806EE16C79 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,14 +345,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8AFB5A57A3C6F943AA1315BB /* Check Pods Manifest.lock */ = {
+		8AFB5A57A3C6F943AA1315BB /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -360,14 +360,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		D689648DA40C34CE67635225 /* Copy Pods Resources */ = {
+		D689648DA40C34CE67635225 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
