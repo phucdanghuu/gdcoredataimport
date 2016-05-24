@@ -90,6 +90,7 @@ Pod::Spec.new do |s|
   #
 
   s.source_files  = "CODataImport", "CODataImport/**/*.{h,m}"
+  s.exclude_files = "CODataImport/CODataImportUnitTest"
 
   # s.public_header_files = "Classes/**/*.h"
 
