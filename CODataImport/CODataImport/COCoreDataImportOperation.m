@@ -94,6 +94,17 @@
     return self;
 }
 
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
+  self = [self initWithClass:class array:array];
+  if (self) {
+    self.isNoId = YES;
+    self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
+    [self.context setUndoManager:nil];
+  }
+  return self;
+}
+
+
 
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate {
     self = [self initWithClass:class];
@@ -142,6 +153,9 @@
                 if (self.isNoId) {
                     if(self.dictionary) {
                         self.results = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
+                    } else if (self.array) {
+                      self.results = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
+
                     }
                 }else {
                     if (self.array) {
@@ -321,6 +335,36 @@
     [self updateManagedObject:object withRecord:data];
     return object;
 }
+
+- (NSArray *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array {
+  NSMutableArray *results = [NSMutableArray array];
+
+  NSArray *sortedArray = nil;
+  if (array != nil && array.count != 0) {
+
+
+    NSInteger objectCounter = 0;
+    for (NSDictionary *data in sortedArray) {
+      if (self.isCancelled) {
+        break;
+      }
+        // create object with id objectId
+
+      id object = [self importNoIdObjectOfClass:class fromData:data];
+      if (object) {
+        [results addObject:object];
+      } else {
+        GGCDLOG(@"object must be not nil %@", data);
+        assert(true);
+      }
+
+    }
+  }
+
+
+  return [NSArray arrayWithArray:results];
+}
+
 
 - (NSArray *)objectsAfterAssignedIds:(NSArray *)ids forObjects:(NSArray *)objects {
     Class class = [objects[0] class];

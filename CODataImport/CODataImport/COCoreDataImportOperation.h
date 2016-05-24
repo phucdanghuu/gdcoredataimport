@@ -24,6 +24,7 @@
 - (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
 - (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate;
+- (id)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array;
 
 // merge a context with the default context
 - (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
