@@ -38,7 +38,6 @@
     self = [super init];
     if (self) {
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
-      self.willCleanupEverything = NO;
     }
     return self;
 }
@@ -96,15 +95,25 @@
 
 - (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
   self = [self initWithClass:class array:array];
+<<<<<<< HEAD
+=======
 
+>>>>>>> b987c1713d9c450f7b262dc89dadd0169aa86b73
   if (self) {
     self.isNoId = YES;
     self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
     [self.context setUndoManager:nil];
   }
+<<<<<<< HEAD
+  return self;
+}
+
+
+=======
 
   return self;
 }
+>>>>>>> b987c1713d9c450f7b262dc89dadd0169aa86b73
 
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate {
     self = [self initWithClass:class];
@@ -155,6 +164,10 @@
                         self.results = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
                     } else if (self.array) {
                       self.results = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
+<<<<<<< HEAD
+
+=======
+>>>>>>> b987c1713d9c450f7b262dc89dadd0169aa86b73
                     }
                 }else {
                     if (self.array) {
@@ -339,6 +352,37 @@
 }
 
 - (NSArray *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array {
+<<<<<<< HEAD
+  NSMutableArray *results = [NSMutableArray array];
+
+  NSArray *sortedArray = nil;
+  if (array != nil && array.count != 0) {
+
+
+    NSInteger objectCounter = 0;
+    for (NSDictionary *data in sortedArray) {
+      if (self.isCancelled) {
+        break;
+      }
+        // create object with id objectId
+
+      id object = [self importNoIdObjectOfClass:class fromData:data];
+      if (object) {
+        [results addObject:object];
+      } else {
+        GGCDLOG(@"object must be not nil %@", data);
+        assert(true);
+      }
+
+    }
+  }
+
+
+  return [NSArray arrayWithArray:results];
+}
+
+
+=======
 
   NSMutableArray *arrayOfObject = [NSMutableArray array];
 
@@ -352,6 +396,7 @@
   return arrayOfObject;
 }
 
+>>>>>>> b987c1713d9c450f7b262dc89dadd0169aa86b73
 - (NSArray *)objectsAfterAssignedIds:(NSArray *)ids forObjects:(NSArray *)objects {
     Class class = [objects[0] class];
     NSString *primaryId = [COCoreDataImportOperation primaryKeyFromClass:class];
