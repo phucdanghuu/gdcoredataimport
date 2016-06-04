@@ -13,5 +13,114 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CODataImportUnitTest/CODataImportUnitTest.m"
+            timestampString = "486757519.421308"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "241"
+            endingLineNumber = "241"
+            landmarkName = "-testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__110-[CODataImportUnitTest testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore]_block_invoke"
+                  moduleName = "CODataImportUnitTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/Data/Projects/Cogini/gdcoredataimport/CODataImport/CODataImportUnitTest/CODataImportUnitTest.m"
+                  timestampString = "486757526.236755"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "66">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__110-[CODataImportUnitTest testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore]_block_invoke"
+                  moduleName = "CODataImportUnitTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/Data/Projects/Cogini/gdcoredataimport/CODataImport/CODataImportUnitTest/CODataImportUnitTest.m"
+                  timestampString = "486757526.237014"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "133">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__110-[CODataImportUnitTest testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore]_block_invoke"
+                  moduleName = "CODataImportUnitTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/Data/Projects/Cogini/gdcoredataimport/CODataImport/CODataImportUnitTest/CODataImportUnitTest.m"
+                  timestampString = "486757526.237271"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "820">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__110-[CODataImportUnitTest testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore]_block_invoke"
+                  moduleName = "CODataImportUnitTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/Data/Projects/Cogini/gdcoredataimport/CODataImport/CODataImportUnitTest/CODataImportUnitTest.m"
+                  timestampString = "486757526.237409"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "1647">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__110-[CODataImportUnitTest testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore]_block_invoke"
+                  moduleName = "CODataImportUnitTest"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Volumes/Data/Data/Projects/Cogini/gdcoredataimport/CODataImport/CODataImportUnitTest/CODataImportUnitTest.m"
+                  timestampString = "486757526.237543"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "241"
+                  endingLineNumber = "241"
+                  offsetFromSymbolStart = "1769">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CODataImport/COCoreDataImportOperation.m"
+            timestampString = "486757539.908227"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "-importObjectsOfClass:fromArray:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

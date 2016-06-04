@@ -38,7 +38,7 @@
     self = [super init];
     if (self) {
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
-      self.willCleanupEverything = NO;
+        self.willCleanupEverything = NO;
     }
     return self;
 }
@@ -95,15 +95,15 @@
 }
 
 - (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
-  self = [self initWithClass:class array:array];
+    self = [self initWithClass:class array:array];
 
-  if (self) {
-    self.isNoId = YES;
-    self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
-    [self.context setUndoManager:nil];
-  }
+    if (self) {
+        self.isNoId = YES;
+        self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
+        [self.context setUndoManager:nil];
+    }
 
-  return self;
+    return self;
 }
 
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate {
@@ -154,7 +154,7 @@
                     if(self.dictionary) {
                         self.results = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
                     } else if (self.array) {
-                      self.results = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
+                        self.results = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
                     }
                 }else {
                     if (self.array) {
@@ -234,13 +234,19 @@
 - (NSArray *)importObjectsOfClass:(Class)class fromArray:(NSArray *)array {
 
     NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:array.count];
+
+    //create sort descriptor with ascending of pimary key
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[COCoreDataImportOperation primaryKeyFromClass:class]
                                                                  ascending:YES];
 
     NSArray *sortedArray = nil;
     if (array != nil && array.count != 0) {
         sortedArray = [array sortedArrayUsingDescriptors:@[descriptor]];
+
+        //Array of primary key
         NSArray *ids = [sortedArray valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+
+        //Managed Object Context Object in database with ids
         NSArray *objectWithIds = [self managedObjectsForClass:class inArrayOfIds:ids];
 
         NSString *primaryKey = [COCoreDataImportOperation primaryKeyFromClass:class];
@@ -250,7 +256,9 @@
             if (self.isCancelled) {
                 break;
             }
-            id objectId = [data valueForKey:primaryKey];
+
+            //The value of primary key
+            id valueOfPrimaryKey = [data valueForKey:primaryKey];
             BOOL willCreate = NO;
 
             if (objectCounter < objectWithIds.count) {
@@ -261,7 +269,7 @@
                     willCreate = YES;
                 } else {
 
-                    if ([objectId isEqual:[object valueForKey:primaryKey]]) {
+                    if ([valueOfPrimaryKey isEqual:[object valueForKey:primaryKey]]) {
                         // do an update
                         [self updateManagedObject:object withRecord:data];
                         [sortedResults addObject:object];
@@ -276,38 +284,53 @@
 
             if (willCreate) {
                 // create object with id objectId
+                
                 GGCDLOG(@"will create %@", data);
-
-               NSManagedObject *newObject = [self importObjectOfClass:class fromData:data];
-//                NSManagedObject *newObject = [class MR_createInContext:self.context];
-//
-//                if (objectId) {
-//                    [newObject setValue:objectId forKey:primaryKey];
-//                }
-//
-//                [self updateManagedObject:newObject withRecord:data];
+                NSManagedObject *newObject = [self importObjectOfClass:class fromData:data];
                 [sortedResults addObject:newObject];
             }
         }
     }
 
 
+    //load object with order by array
     NSMutableArray *results = [NSMutableArray array];
 
     for (NSDictionary *obj in array) {
+
         id primaryValue = [obj objectForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+        NSArray *objects = [self managedObjectsForClass:class inArrayOfIds:@[primaryValue]];
 
-        NSArray *arr = [self managedObjectsForClass:class inArrayOfIds:@[primaryValue]];
+        if (objects) {
+            NSMutableArray *mutableArray = [NSMutableArray arrayWithArray:objects];
 
-        NSAssert([arr count] == 1, @"arr count must be equal 1");
+            // If the number of objects with primary key is greater than 1, removed all objects except the last object
+            while (mutableArray.count > 1) {
+                NSManagedObject *managedObject = mutableArray[0];
+                [managedObject MR_deleteEntity];
+                [mutableArray removeObjectAtIndex:0];
+            }
 
-        [results addObjectsFromArray:arr];
-
+            if (mutableArray.firstObject) {
+                [results addObject:mutableArray.firstObject];
+            }
+        }
     }
 
     return results;
 }
 
+
+/**
+ *  Check the object existing in context by the value of primary key
+ *  If existed, load the object and update new data
+ *  if not existed, create new object in this context and update new date
+ *
+ *  @param class <#class description#>
+ *  @param data  <#data description#>
+ *
+ *  @return <#return value description#>
+ */
 - (NSManagedObject *)importObjectOfClass:(Class)class fromData:(NSDictionary *)data {
     id objectId = [data valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
 
@@ -340,16 +363,16 @@
 
 - (NSArray *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array {
 
-  NSMutableArray *arrayOfObject = [NSMutableArray array];
+    NSMutableArray *arrayOfObject = [NSMutableArray array];
 
-  for (NSDictionary *data in array) {
-    NSManagedObject *object = [class MR_createInContext:self.context];
-    [self updateManagedObject:object withRecord:data];
+    for (NSDictionary *data in array) {
+        NSManagedObject *object = [class MR_createInContext:self.context];
+        [self updateManagedObject:object withRecord:data];
 
-    [arrayOfObject addObject:object];
-  }
+        [arrayOfObject addObject:object];
+    }
 
-  return arrayOfObject;
+    return arrayOfObject;
 }
 
 - (NSArray *)objectsAfterAssignedIds:(NSArray *)ids forObjects:(NSArray *)objects {
@@ -505,11 +528,11 @@
 #pragma mark - Helper Method
 
 - (NSArray *)objsInMainThreadWithObjs:(NSArray *)objs {
-    NSDate *date = [NSDate date];
+//    NSDate *date = [NSDate date];
     NSError *error;
     Class class = [objs.lastObject class];
     if ([self.context obtainPermanentIDsForObjects:objs error:&error]) {
-//        NSArray *newObjs = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self IN %@", [objs valueForKey:@"objectID"]] inContext:self.defaultContext];
+        //        NSArray *newObjs = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self IN %@", [objs valueForKey:@"objectID"]] inContext:self.defaultContext];
 
         NSMutableArray *results = [NSMutableArray array];
 
@@ -518,12 +541,11 @@
 
             NSArray *arr = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self = %@", primaryValue] inContext:self.defaultContext];
 
-            NSAssert([arr count] == 1, @"arr count must be equal 1");
+            //            NSAssert([arr count] == 1, @"arr count must be equal 1");
 
             [results addObjectsFromArray:arr];
 
         }
-
 
         GGCDLOG(@"fetch main thread objs in %f",[[NSDate date] timeIntervalSinceDate:date]);
         return results;
@@ -575,14 +597,14 @@
 }
 
 + (id)mapping {
-  return @{};
+    return @{};
 }
 
 #pragma mark - Data Conversion
 
 + (NSString *)defaultDateFormat {
 
-  return _dateFormat ? _dateFormat : @"yyyy-MM-dd'T'HH:mm:ssZZZ";
+    return _dateFormat ? _dateFormat : @"yyyy-MM-dd'T'HH:mm:ssZZZ";
 
 }
 
@@ -606,8 +628,8 @@
 static NSString *_dateFormat = nil;
 
 + (void) setDefaultDateFormat:(NSString *)dateFormat {
-
-  _dateFormat = dateFormat;
+    
+    _dateFormat = dateFormat;
 }
 
 

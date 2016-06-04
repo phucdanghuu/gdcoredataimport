@@ -206,6 +206,61 @@
  * Test case: Import Student array items with have the same primary key value
  */
 
+- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore {
+
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   @{
+                                       @"id"     : @1,
+                                       @"name"   : @"name 1",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       },
+                                   @{
+                                       @"id"     : @1,
+                                       @"name"   : @"name 2",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       }
+
+                                   ]
+                           };
+
+    Student *student = [Student MR_createEntity];
+    student.id = [dic[@"data"] firstObject][@"id"];
+    [student.managedObjectContext MR_saveOnlySelfAndWait];
+
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+
+    static BOOL done = NO;
+
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
+
+    operation.completionBlockWithResults = ^(NSArray *results) {
+
+
+        XCTAssertEqual(results.count, 2);
+        XCTAssertEqual(results[0], results[1]);
+        done = YES;
+
+    };
+
+
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
+    }
+}
+
+/**
+ * Test case: Import Student array items with have the same primary key value
+ */
+
 - (void)testImportArrayRoomDataWithoutDistinctPrimaryKeyValues {
 
   NSDictionary *dic  = @{
