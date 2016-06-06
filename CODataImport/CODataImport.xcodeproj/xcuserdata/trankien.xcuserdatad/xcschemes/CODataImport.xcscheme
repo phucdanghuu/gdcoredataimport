@@ -28,7 +28,26 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6E1BF6991C47619900E33462"
+               BuildableName = "CODataImportUnitTest.xctest"
+               BlueprintName = "CODataImportUnitTest"
+               ReferencedContainer = "container:CODataImport.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "6E54870A1BB8F79C003E0D0A"
+            BuildableName = "libCODataImport.a"
+            BlueprintName = "CODataImport"
+            ReferencedContainer = "container:CODataImport.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>

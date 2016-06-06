@@ -608,24 +608,37 @@
 
 }
 
+
 + (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.locale = [NSLocale currentLocale];
-    formatter.timeZone = [NSTimeZone systemTimeZone];
+    
+    NSDateFormatter *formatter = [self dateFormatter];
+//    formatter.locale = [NSLocale currentLocale];
+//    formatter.timeZone = [NSTimeZone systemTimeZone];
     formatter.dateFormat = dateFormat;
     return [formatter stringFromDate:date];
 }
 
 
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.locale = [NSLocale currentLocale];
-    formatter.timeZone = [NSTimeZone systemTimeZone];
+    NSDateFormatter *formatter = [self dateFormatter];
+//    formatter.locale = [NSLocale currentLocale];
+//    formatter.timeZone = [NSTimeZone systemTimeZone];
     formatter.dateFormat = dateFormat;
     return [formatter dateFromString:dateString];
 }
 
 static NSString *_dateFormat = nil;
+
++ (NSDateFormatter *)dateFormatter {
+    static NSDateFormatter *_dateFormatter = nil;
+
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _dateFormatter = [[NSDateFormatter alloc] init];
+    });
+    
+    return _dateFormatter;
+}
 
 + (void) setDefaultDateFormat:(NSString *)dateFormat {
     
