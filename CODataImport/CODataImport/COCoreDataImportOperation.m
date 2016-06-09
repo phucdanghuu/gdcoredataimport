@@ -30,6 +30,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @property (nonatomic) BOOL isNoId;
 
 @property (nonatomic, strong) NSDate *date;
+@property (atomic, assign)  BOOL waitingForBlock;
 
 @end
 
@@ -327,12 +328,23 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 }
 
 - (void)saveToPersistentStore:(NSManagedObjectContext *)context {
+    
+    self.waitingForBlock = YES;
+    
     [context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-       
+        
         if (error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore object:error];
         }
+        
+        self.waitingForBlock = NO;
     }];
+    
+    while(self.waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.01f]];
+        
+    }
     
 }
 
