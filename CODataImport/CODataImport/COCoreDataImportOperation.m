@@ -8,6 +8,7 @@
 
 #import "COCoreDataImportOperation.h"
 
+NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore";
 
 @interface COCoreDataImportOperation ()
 
@@ -167,7 +168,8 @@
 
             if (!self.isCancelled) {
                 NSDate *date = [NSDate date];
-                [self.context MR_saveToPersistentStoreAndWait];
+//                [self.context MR_saveToPersistentStoreAndWait];
+                [self saveToPersistentStore:self.context];
                 if (self.willReturnCompletionBlockWithMainThreadObjects) {
                     self.results = [self objsInMainThreadWithObjs:self.results];
                 }
@@ -179,7 +181,9 @@
             // merge the context only
             if (!self.isCancelled) {
                 NSDate *date = [NSDate date];
-                [self.context MR_saveToPersistentStoreAndWait];
+//                [self.context MR_saveToPersistentStoreAndWait];
+                [self saveToPersistentStore:self.context];
+
                 GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:date]);
             }
         }else {
@@ -187,7 +191,9 @@
                 NSDate *date = [NSDate date];
 
 
-                [self.defaultContext MR_saveToPersistentStoreAndWait];
+//                [self.defaultContext MR_saveToPersistentStoreAndWait];
+                [self saveToPersistentStore:self.defaultContext];
+
                 GGCDLOG(@"save defaul context with time %f",[[NSDate date] timeIntervalSinceDate:date]);
             }
         }
@@ -320,6 +326,15 @@
     return results;
 }
 
+- (void)saveToPersistentStore:(NSManagedObjectContext *)context {
+    [context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+       
+        if (error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore object:error];
+        }
+    }];
+    
+}
 
 /**
  *  Check the object existing in context by the value of primary key

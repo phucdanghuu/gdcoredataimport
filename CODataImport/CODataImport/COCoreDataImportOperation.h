@@ -10,6 +10,11 @@
 #import "CODataImport.h"
 
 
+/**
+ *  Did notification will be posted if saveToPersistenStore has any problems
+ */
+extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore;
+
 
 @interface COCoreDataImportOperation : NSOperation
 
