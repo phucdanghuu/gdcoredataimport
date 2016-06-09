@@ -340,10 +340,16 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         self.waitingForBlock = NO;
     }];
     
+    int counter = 0;
     while(self.waitingForBlock) {
-        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.01f]];
+        [NSThread sleepForTimeInterval:0.0001f];
         
+        NSLog(@"counter %d", counter);
+        counter++;
+        
+        if (counter >= 10000) {
+            break;
+        }
     }
     
 }
