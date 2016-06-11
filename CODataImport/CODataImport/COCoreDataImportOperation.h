@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "CODataImport.h"
-
+#import <CoreData/CoreData.h>
 
 /**
  *  Did notification will be posted if saveToPersistenStore has any problems
@@ -19,10 +19,19 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 @interface COCoreDataImportOperation : NSOperation
 
 @property (nonatomic, strong, readonly) NSArray *results;
-@property (nonatomic, assign) BOOL shouldNotSaveToPersistentStore;
+@property (nonatomic, assign) BOOL shouldSaveToPersistentStore;
 @property (nonatomic) BOOL willCleanupEverything;
 
-@property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results);
+@property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
+
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext;
+- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext;
+// to create new object without id (so that we will wait for the id to arrive later
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext;
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext;
+
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext willCleanupEverything:(BOOL)willCleanupEverything;
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext isCleanAndCreate:(BOOL)isCleanAndCreate;
 
 - (id)initWithClass:(Class)class array:(NSArray *)array;
 - (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
@@ -32,10 +41,8 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 
 - (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
 - (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate;
-- (id)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array;
-
 // merge a context with the default context
-- (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
+//- (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
 
 - (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects;
 

@@ -24,11 +24,12 @@
 
   [MagicalRecord setDefaultModelFromClass:[self class]];
 
-  [MagicalRecord setupCoreDataStackWithInMemoryStore];
+  [MagicalRecord setupCoreDataStackWithStoreNamed:@"test.sqlite"];
 
   [Student MR_truncateAll];
   [Room MR_truncateAll];
 
+    NSLog(@"url %@",   [NSPersistentStore MR_defaultPersistentStore].URL.absoluteString);
   [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 

@@ -25,8 +25,8 @@
 		6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */; };
 		6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67E1C4CE4BD002973EC /* Room_Student.m */; };
 		6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD9E41C4E582F00D43085 /* TestingUtils.m */; };
-		78DBDC3298B6D2215B82BF6E /* libPods-CODataImportUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BC7A7D1ADB0B1D0FDF457769 /* libPods-CODataImportUnitTest.a */; };
-		C7ED7D7C9C6D20D53B51E843 /* libPods-CODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FF6F1087FAE406D6ACFA230 /* libPods-CODataImport.a */; };
+		E40B7BF54FA3CFC1C91A7B48 /* libPods-CODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */; };
+		F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +53,7 @@
 
 /* Begin PBXFileReference section */
 		1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
+		5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImportUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CODataImportUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CODataImportUnitTest.m; sourceTree = "<group>"; };
 		6E1BF69E1C47619900E33462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -83,9 +84,8 @@
 		6ED5E67E1C4CE4BD002973EC /* Room_Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Room_Student.m; sourceTree = "<group>"; };
 		6EDDD9E31C4E582F00D43085 /* TestingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingUtils.h; sourceTree = "<group>"; };
 		6EDDD9E41C4E582F00D43085 /* TestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingUtils.m; sourceTree = "<group>"; };
+		6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.release.xcconfig"; sourceTree = "<group>"; };
-		8FF6F1087FAE406D6ACFA230 /* libPods-CODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7A7D1ADB0B1D0FDF457769 /* libPods-CODataImportUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImportUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.debug.xcconfig"; sourceTree = "<group>"; };
 		E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,7 +97,7 @@
 			files = (
 				6E1BF69F1C47619900E33462 /* libCODataImport.a in Frameworks */,
 				6E1BF6BC1C479B0B00E33462 /* CoreData.framework in Frameworks */,
-				78DBDC3298B6D2215B82BF6E /* libPods-CODataImportUnitTest.a in Frameworks */,
+				F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +106,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */,
-				C7ED7D7C9C6D20D53B51E843 /* libPods-CODataImport.a in Frameworks */,
+				E40B7BF54FA3CFC1C91A7B48 /* libPods-CODataImport.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,8 +116,8 @@
 		2A890DB3D04C06BD5DCF8834 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8FF6F1087FAE406D6ACFA230 /* libPods-CODataImport.a */,
-				BC7A7D1ADB0B1D0FDF457769 /* libPods-CODataImportUnitTest.a */,
+				6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */,
+				5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -526,6 +526,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */;
 			buildSettings = {
+				DEFINES_MODULE = YES;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -536,6 +538,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */;
 			buildSettings = {
+				DEFINES_MODULE = YES;
+				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

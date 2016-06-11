@@ -24,6 +24,8 @@
 - (void)setUp {
   [super setUp];
   [TestingUtils setUpTestingDatabase];
+
+
 }
 
 
@@ -32,6 +34,11 @@
 - (void)tearDown {
   // Put teardown code here. This method is called after the invocation of each test method in the class.
   [super tearDown];
+    [Student MR_truncateAll];
+//    [Class MR_truncateAll];
+    [Room MR_truncateAll];
+    [Room_Student MR_truncateAll];
+    [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
   [TestingUtils cleanUpTestingDatabase];
 }
 
@@ -56,11 +63,17 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+    operation.shouldSaveToPersistentStore = YES;
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 2);
 
+      
+
+//      NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithStoreCoordinator:[NSPersistentStoreCoordinator MR_defaultStoreCoordinator]];
+
+//      NSArray *arr = [Student MR_findAllInContext:context];
     done = YES;
 
   };
@@ -128,7 +141,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 2);
@@ -180,7 +193,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 2);
@@ -235,7 +248,7 @@
 
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
 
-    operation.completionBlockWithResults = ^(NSArray *results) {
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
         XCTAssertEqual(results.count, 2);
@@ -288,7 +301,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
     XCTAssertEqual(results.count, 2);
     done = YES;
@@ -327,7 +340,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 0);
@@ -369,7 +382,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
     XCTAssertEqual(results.count, 0);
 
@@ -416,7 +429,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic1[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 2);
@@ -443,7 +456,7 @@
 
 
     operation2.willCleanupEverything = true;
-    operation2.completionBlockWithResults = ^(NSArray *results) {
+    operation2.completionBlockWithResults = ^(NSArray *results, NSError *error) {
       XCTAssertEqual(results.count, 2);
 
       done = YES;
@@ -495,7 +508,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
     XCTAssertEqual(results.count, 2);
 
@@ -546,7 +559,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 1);
@@ -587,7 +600,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 1);
@@ -624,7 +637,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
 
     XCTAssertEqual(results.count, 1);
@@ -665,7 +678,7 @@
 
   COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
 
-  operation.completionBlockWithResults = ^(NSArray *results) {
+  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
 
     XCTAssertEqual(results.count, 1);
 

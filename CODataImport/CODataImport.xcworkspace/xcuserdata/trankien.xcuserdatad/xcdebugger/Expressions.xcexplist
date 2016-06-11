@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "__70-[NSManagedObjectContext(MagicalSaves) MR_saveWithOptions:completion:]_block_invoke.20:NSManagedObjectContext+MagicalSaves.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[self parentContext]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
