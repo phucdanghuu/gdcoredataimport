@@ -189,18 +189,26 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
             if (self.completionBlockWithResults) {
 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.shouldSaveToPersistentStore) {
-                        [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-                            self.completionBlockWithResults(self.results, nil);
+                if (self.shouldSaveToPersistentStore) {
 
-                        }];
-                    } else {
+                    /**
+                     *  MR_saveToPersistentStoreWithCompletion will return on main thread
+                     */
+                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+                        self.completionBlockWithResults(self.results, error);
+
+                    }];
+                } else {
+                    dispatch_async(dispatch_get_main_queue(), ^{
+
                         self.completionBlockWithResults(self.results, nil);
-                    }
+                    });
+                }
+            } else {
+                if (self.shouldSaveToPersistentStore) {
 
-                });
-
+                    [self.context MR_saveToPersistentStoreAndWait];
+                }
             }
 
             GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]);
