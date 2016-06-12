@@ -176,30 +176,35 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         }
 
         if (!self.isCancelled) {
-            [self save:self.context block:^(NSError * _Nullable error) {
 
-                if (error) {
-                    self.completionBlockWithResults(nil, error);
-                } else {
-                    if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                        self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-                    } else {
-                        self.results = nil;
-                    }
+            //To updated object to parent context
+            [self.context MR_saveOnlySelfAndWait];
 
-                    if (self.completionBlockWithResults) {
 
-                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
+            if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+            } else {
+                self.results = nil;
+            }
+
+            if (self.completionBlockWithResults) {
+
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    if (self.shouldSaveToPersistentStore) {
+                        [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
                             self.completionBlockWithResults(self.results, nil);
-                        }else {
-                            self.completionBlockWithResults(nil, nil);
-                        }
-                    }
-                }
 
-                GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]);
-                GGCDLOG(@"--end-- %@",self);
-            }];
+                        }];
+                    } else {
+                        self.completionBlockWithResults(self.results, nil);
+                    }
+
+                });
+
+            }
+
+            GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]);
+            GGCDLOG(@"--end-- %@",self);
 
         } else {
             self.results = nil;
@@ -207,6 +212,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     }
 }
 
+
+- (void)dealloc {
+    GGCDLOG(@"dealloc operation %@",self);
+
+}
 - (void)updateManagedObject:(NSManagedObject *)managedObject withRecord:(NSDictionary *)record {
     [record enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (self.isCancelled) {
