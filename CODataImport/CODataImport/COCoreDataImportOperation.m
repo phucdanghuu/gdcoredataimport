@@ -177,16 +177,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
         if (!self.isCancelled) {
 
-            //To updated object to parent context
-            [self.context MR_saveOnlySelfAndWait];
-
-
-            if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-            } else {
-                self.results = nil;
-            }
-
             if (self.completionBlockWithResults) {
 
                 if (self.shouldSaveToPersistentStore) {
@@ -195,10 +185,20 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                      *  MR_saveToPersistentStoreWithCompletion will return on main thread
                      */
                     [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                        } else {
+                            self.results = nil;
+                        }
+                        
                         self.completionBlockWithResults(self.results, error);
 
                     }];
                 } else {
+                    
+                    //To updated object to parent context
+                    [self.context MR_saveOnlySelfAndWait];
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
 
                         self.completionBlockWithResults(self.results, nil);
@@ -208,6 +208,10 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                 if (self.shouldSaveToPersistentStore) {
 
                     [self.context MR_saveToPersistentStoreAndWait];
+                } else {
+                    
+                    //To updated object to parent context
+                    [self.context MR_saveOnlySelfAndWait];
                 }
             }
 
