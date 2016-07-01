@@ -199,6 +199,12 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                     //To updated object to parent context
                     [self.context MR_saveOnlySelfAndWait];
                     
+                    if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                        self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                    } else {
+                        self.results = nil;
+                    }
+                    
                     dispatch_async(dispatch_get_main_queue(), ^{
 
                         self.completionBlockWithResults(self.results, nil);
