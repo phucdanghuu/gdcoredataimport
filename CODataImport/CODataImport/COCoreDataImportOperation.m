@@ -43,7 +43,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
         self.willCleanupEverything = NO;
 
-        self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_rootSavingContext]];
+        self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_defaultContext]];
         [self.context setUndoManager:nil];
         [self.context setMergePolicy:[[NSMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType]];
     }
