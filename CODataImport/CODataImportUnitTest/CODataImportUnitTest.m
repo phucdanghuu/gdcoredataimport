@@ -22,29 +22,29 @@
 
 
 - (void)setUp {
-  [super setUp];
-  [TestingUtils setUpTestingDatabase];
-
-
+    [super setUp];
+    [TestingUtils setUpTestingDatabase];
+    
+    
 }
 
 
 
 
 - (void)tearDown {
-  // Put teardown code here. This method is called after the invocation of each test method in the class.
-  [super tearDown];
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [super tearDown];
     [Student MR_truncateAll];
-//    [Class MR_truncateAll];
+    //    [Class MR_truncateAll];
     [Room MR_truncateAll];
     [Room_Student MR_truncateAll];
     [[NSManagedObjectContext MR_defaultContext] MR_saveOnlySelfAndWait];
-  [TestingUtils cleanUpTestingDatabase];
+    [TestingUtils cleanUpTestingDatabase];
 }
 
 - (void)testExample {
-  // This is an example of a functional test case.
-  // Use XCTAssert and related functions to verify your tests produce the correct results.
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
 
 
@@ -52,63 +52,111 @@
  *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
  */
 - (void)testImportArrayStudentDataWithDistinctPrimaryKeyValues{
-
-
-  NSDictionary *dic  = [self studentsDictionary];
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
-
-    operation.shouldSaveToPersistentStore = YES;
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 2);
-
-      
-
-//      NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithStoreCoordinator:[NSPersistentStoreCoordinator MR_defaultStoreCoordinator]];
-
-//      NSArray *arr = [Student MR_findAllInContext:context];
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    
+    NSDictionary *dic  = [self studentsDictionary];
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
+    
+    //    operation.shouldSaveToPersistentStore = YES;
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        
+        
+        //      NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithStoreCoordinator:[NSPersistentStoreCoordinator MR_defaultStoreCoordinator]];
+        
+        //      NSArray *arr = [Student MR_findAllInContext:context];
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
+    
+}
 
+/**
+ *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
+ */
+- (void)testImportArrayStudentDataWithDistinctPrimaryKeyValuesWithShouldSaveToPersistentStoreIsNO{
+    
+    
+    NSDictionary *dic  = [self studentsDictionary];
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
+    
+    //    operation.shouldSaveToPersistentStore = NO;
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        Student *firstObject = results.firstObject;
+        Student *secondObject = results[1];
+        
+        XCTAssertTrue([firstObject.name isEqualToString:@"name 1"], @"results return false");
+        XCTAssertTrue([secondObject.name isEqualToString:@"name 2"], @"results return false");
+        
+        //      NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithStoreCoordinator:[NSPersistentStoreCoordinator MR_defaultStoreCoordinator]];
+        
+        //      NSArray *arr = [Student MR_findAllInContext:context];
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
+    }
+    
 }
 
 - (NSDictionary *)studentsDictionary {
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             @{
-                               @"id"     : @1,
-                               @"name"   : @"name 1",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               },
-                             @{
-                               @"id"     : @2,
-                               @"name"   : @"name 2",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               }
-
-                             ]
-                         };
-  return dic;
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   @{
+                                       @"id"     : @1,
+                                       @"name"   : @"name 1",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       },
+                                   @{
+                                       @"id"     : @2,
+                                       @"name"   : @"name 2",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       }
+                                   
+                                   ]
+                           };
+    return dic;
 }
 
 /**
@@ -116,51 +164,51 @@
  */
 
 - (void)testImportArrayRoomDataWithDistinctPrimaryKeyValues {
-
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             @{
-                               @"room_id"     : @"1",
-                               @"name"   : @"name 1",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               },
-                             @{
-                               @"room_id"     : @"2",
-                               @"name"   : @"name 2",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               }
-
-                             ]
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 2);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   @{
+                                       @"room_id"     : @"1",
+                                       @"name"   : @"name 1",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       },
+                                   @{
+                                       @"room_id"     : @"2",
+                                       @"name"   : @"name 2",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       }
+                                   
+                                   ]
+                           };
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 /**
@@ -168,59 +216,7 @@
  */
 
 - (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValues {
-
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             @{
-                               @"id"     : @1,
-                               @"name"   : @"name 1",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               },
-                             @{
-                               @"id"     : @1,
-                               @"name"   : @"name 2",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               }
-
-                             ]
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 2);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
-    }
-  }
-}
-
-/**
- * Test case: Import Student array items with have the same primary key value
- */
-
-- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore {
-
+    
     NSDictionary *dic  = @{
                            @"data": @[
                                    @{
@@ -233,33 +229,85 @@
                                        @"name"   : @"name 2",
                                        @"create_date"  : @"1990-12-30T12:00:00+07:00"
                                        }
-
+                                   
                                    ]
                            };
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
+    }
+}
 
+/**
+ * Test case: Import Student array items with have the same primary key value
+ */
+
+- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndOneObjectHasInsertedBefore {
+    
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   @{
+                                       @"id"     : @1,
+                                       @"name"   : @"name 1",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       },
+                                   @{
+                                       @"id"     : @1,
+                                       @"name"   : @"name 2",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       }
+                                   
+                                   ]
+                           };
+    
     Student *student = [Student MR_createEntity];
     student.id = [dic[@"data"] firstObject][@"id"];
     [student.managedObjectContext MR_saveOnlySelfAndWait];
-
+    
     // Set the flag to YES
     __block BOOL waitingForBlock = YES;
-
+    
     static BOOL done = NO;
-
+    
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
-
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
+        
+        
         XCTAssertEqual(results.count, 2);
         XCTAssertEqual(results[0], results[1]);
         done = YES;
-
+        
     };
-
-
+    
+    
     [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
+    
     while(waitingForBlock) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
                                  beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -275,50 +323,50 @@
  */
 
 - (void)testImportArrayRoomDataWithoutDistinctPrimaryKeyValues {
-
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             @{
-                               @"room_id"     : @"1",
-                               @"name"   : @"name 1",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               },
-                             @{
-                               @"room_id"     : @"1",
-                               @"name"   : @"name 2",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               }
-
-                             ]
-                         };
-
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-    XCTAssertEqual(results.count, 2);
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   @{
+                                       @"room_id"     : @"1",
+                                       @"name"   : @"name 1",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       },
+                                   @{
+                                       @"room_id"     : @"1",
+                                       @"name"   : @"name 2",
+                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                       }
+                                   
+                                   ]
+                           };
+    
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        XCTAssertEqual(results.count, 2);
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 /**
@@ -326,40 +374,40 @@
  */
 
 - (void)testImportEmptyArrayOfStudentData {
-
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             ]
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 0);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   ]
+                           };
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 0);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 /**
@@ -367,119 +415,174 @@
  */
 
 - (void)testImportEmptyArrayOfRoomData {
-
-  NSDictionary *dic  = @{
-                         @"data": @[
-                             ]
-                         };
-
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-    XCTAssertEqual(results.count, 0);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    NSDictionary *dic  = @{
+                           @"data": @[
+                                   ]
+                           };
+    
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        XCTAssertEqual(results.count, 0);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
+/**
+ * Test case: Import Student array items with have the same primary key value
+ */
+
+//- (void)testImportEmptyArrayOfRoomDataWithParentContext {
+//    
+//    NSDictionary *dic  = @{
+//                           @"data": @[
+//                                   @{
+//                                       @"room_id"     : @"1",
+//                                       @"name"   : @"name 1",
+//                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+//                                       },
+//                                   @{
+//                                       @"room_id"     : @"2",
+//                                       @"name"   : @"name 2",
+//                                       @"create_date"  : @"1990-12-30T12:00:00+07:00"
+//                                       }
+//                                   
+//                                   ]
+//                           };
+//    
+//    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_defaultContext]];
+//    NSManagedObjectContext *context1 = [NSManagedObjectContext MR_contextWithParent:context];
+//    NSManagedObjectContext *context2 = [NSManagedObjectContext MR_contextWithParent:context1];
+//
+//    
+//    // Set the flag to YES
+//    __block BOOL waitingForBlock = YES;
+//    
+//    static BOOL done = NO;
+//    
+//    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"] parentContext:context2];
+//    
+//    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+//        
+//        XCTAssertEqual(results.count, 0);
+//        
+//        done = YES;
+//        
+//    };
+//    
+//    
+//    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+//    
+//    while(waitingForBlock) {
+//        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+//                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+//        
+//        if (done) {
+//            break;
+//        }
+//    }
+//}
+
 - (void)testImportArrayRoomDataWithCleanUp {
-
-  NSDictionary *dic1  = @{
-                          @"data": @[
-                              @{
-                                @"room_id"     : @"1",
-                                @"name"   : @"name 1",
-                                @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                                },
-                              @{
-                                @"room_id"     : @"1",
-                                @"name"   : @"name 2",
-                                @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                                }
-
-                              ]
-                          };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic1[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 2);
-
-
-
-    NSDictionary *dic2  = @{
+    
+    NSDictionary *dic1  = @{
                             @"data": @[
-                                @{
-                                  @"room_id"     : @"3",
-                                  @"name"   : @"name 1",
-                                  @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                                  },
-                                @{
-                                  @"room_id"     : @"4",
-                                  @"name"   : @"name 2",
-                                  @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                                  }
-
-                                ]
+                                    @{
+                                        @"room_id"     : @"1",
+                                        @"name"   : @"name 1",
+                                        @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                        },
+                                    @{
+                                        @"room_id"     : @"1",
+                                        @"name"   : @"name 2",
+                                        @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                        }
+                                    
+                                    ]
                             };
-
-    COCoreDataImportOperation *operation2 = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic2[@"data"]];
-
-
-    operation2.willCleanupEverything = true;
-    operation2.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-      XCTAssertEqual(results.count, 2);
-
-      done = YES;
-
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic1[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        
+        
+        NSDictionary *dic2  = @{
+                                @"data": @[
+                                        @{
+                                            @"room_id"     : @"3",
+                                            @"name"   : @"name 1",
+                                            @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                            },
+                                        @{
+                                            @"room_id"     : @"4",
+                                            @"name"   : @"name 2",
+                                            @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                            }
+                                        
+                                        ]
+                                };
+        
+        COCoreDataImportOperation *operation2 = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic2[@"data"]];
+        
+        
+        operation2.willCleanupEverything = true;
+        operation2.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+            XCTAssertEqual(results.count, 2);
+            
+            done = YES;
+            
+        };
+        
+        [[UnitTestCoreDataQueue sharedQueue] addOperation:operation2];
+        
+        
+        
     };
-
-    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation2];
-
-
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 /**
@@ -487,176 +590,176 @@
  */
 
 - (void)testImportArrayRoomDataWithObjectsNoPrimaryKey {
-
-  NSDictionary *dic  = @{
-                         @"data":
-                           @[@{
-                               @"room_id"     : @"1",
-                               @"student_id"   : @1
-                               },
-                             @{
-                               @"room_id"     : @"1",
-                               @"student_id"   : @1
-                               }]
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-    XCTAssertEqual(results.count, 2);
-
-    Room_Student *roomStudent1 = results.firstObject;
-    Room_Student *roomStudent2 = results.lastObject;
-
-    XCTAssertTrue(roomStudent1.student_id.integerValue == 1);
-    XCTAssertTrue([roomStudent1.room_id isEqualToString:@"1"]);
-
-    XCTAssertTrue(roomStudent2.student_id.integerValue == 1);
-    XCTAssertTrue([roomStudent2.room_id isEqualToString:@"1"]);
-
-    XCTAssertNotEqual(roomStudent1, roomStudent2);
     
-    done = YES;
+    NSDictionary *dic  = @{
+                           @"data":
+                               @[@{
+                                     @"room_id"     : @"1",
+                                     @"student_id"   : @1
+                                     },
+                                 @{
+                                     @"room_id"     : @"1",
+                                     @"student_id"   : @1
+                                     }]
+                           };
     
-  };
-  
-  
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-  
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     
-    if (done) {
-      break;
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        XCTAssertEqual(results.count, 2);
+        
+        Room_Student *roomStudent1 = results.firstObject;
+        Room_Student *roomStudent2 = results.lastObject;
+        
+        XCTAssertTrue(roomStudent1.student_id.integerValue == 1);
+        XCTAssertTrue([roomStudent1.room_id isEqualToString:@"1"]);
+        
+        XCTAssertTrue(roomStudent2.student_id.integerValue == 1);
+        XCTAssertTrue([roomStudent2.room_id isEqualToString:@"1"]);
+        
+        XCTAssertNotEqual(roomStudent1, roomStudent2);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 - (void)testImportStudentDictionaryWithDistinctPrimaryKeyValues {
-
-
-  NSDictionary *dic  = @{
-                         @"data":
-                           @{
-                             @"id"     : @1,
-                             @"name"   : @"name 1",
-                             @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                             }
-                         };
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 1);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    
+    NSDictionary *dic  = @{
+                           @"data":
+                               @{
+                                   @"id"     : @1,
+                                   @"name"   : @"name 1",
+                                   @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                   }
+                           };
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 1);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
-
+    
 }
 
 - (void)testImportRoomDictionaryWithDistinctPrimaryKeyValues {
-
-  NSDictionary *dic  = @{
-                         @"data":                              @{
-                               @"room_id"     : @"1",
-                               @"name"   : @"name 1",
-                               @"create_date"  : @"1990-12-30T12:00:00+07:00"
-                               }
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 1);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     
-    if (done) {
-      break;
+    NSDictionary *dic  = @{
+                           @"data":                              @{
+                                   @"room_id"     : @"1",
+                                   @"name"   : @"name 1",
+                                   @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                   }
+                           };
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 1);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 
 - (void)testImportEmptyDicOfStudentData {
-
-  NSDictionary *dic  = @{
-                         @"data": @{}
-                         };
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-
-    XCTAssertEqual(results.count, 1);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-
-    if (done) {
-      break;
+    
+    NSDictionary *dic  = @{
+                           @"data": @{}
+                           };
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 1);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 /**
@@ -664,47 +767,47 @@
  */
 
 - (void)testImportEmptyDicOfRoomData {
-
-  NSDictionary *dic  = @{
-                         @"data": @{}
-                         };
-
-
-
-  // Set the flag to YES
-  __block BOOL waitingForBlock = YES;
-
-  static BOOL done = NO;
-
-  COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
-
-  operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
-
-    XCTAssertEqual(results.count, 1);
-
-    done = YES;
-
-  };
-
-
-  [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
-
-  while(waitingForBlock) {
-    [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
-                             beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     
-    if (done) {
-      break;
+    NSDictionary *dic  = @{
+                           @"data": @{}
+                           };
+    
+    
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"]];
+    
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        XCTAssertEqual(results.count, 1);
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
     }
-  }
 }
 
 
 - (void)testPerformanceExample {
-  // This is an example of a performance test case.
-  [self measureBlock:^{
-    // Put the code you want to measure the time of here.
-  }];
+    // This is an example of a performance test case.
+    [self measureBlock:^{
+        // Put the code you want to measure the time of here.
+    }];
 }
 
 @end

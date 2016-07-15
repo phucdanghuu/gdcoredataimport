@@ -39,13 +39,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 - (id)init {
     self = [super init];
     if (self) {
-        self.shouldSaveToPersistentStore = YES;
+//        self.shouldSaveToPersistentStore = YES;
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
         self.willCleanupEverything = NO;
 
-        self.context = [NSManagedObjectContext MR_contextWithParent:[NSManagedObjectContext MR_defaultContext]];
-        [self.context setUndoManager:nil];
-        [self.context setMergePolicy:[[NSMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType]];
+        self.context = [self contextWithParentContext:[NSManagedObjectContext MR_rootSavingContext]];
     }
     return self;
 }
@@ -112,13 +110,73 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 }
 
 
-//- (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
-//    self = [self init];
-//    if (self) {
-//        self.context = context;
-//    }
-//    return self;
-//}
+- (id)initWithManagedObjectContext:(NSManagedObjectContext *)context {
+    self = [self init];
+    if (self) {
+        self.context = context;
+    }
+    return self;
+}
+
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext {
+    if (self = [self initWithClass:class array:array]) {
+        self.context = [self contextWithParentContext:parentContext];
+    }
+    
+    return self;
+}
+
+- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
+    if ( self = [self initWithClass:class dictionary:dictionary]) {
+        
+    }
+    
+    return self;
+}
+
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext {
+    if (self = [self initWithClass:class array:array]) {
+        self.context = [self contextWithParentContext:parentContext];
+    }
+    
+    return self;
+}
+
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
+    if (self = [self initWithClass:class dictionary:dictionary]) {
+        self.context = [self contextWithParentContext:parentContext];
+    }
+    
+    return self;
+}
+
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext isCleanAndCreate:(BOOL)isCleanAndCreate {
+    if (self = [self initWithClass:class array:array isCleanAndCreate:isCleanAndCreate]) {
+        self.context = [self contextWithParentContext:parentContext];
+    }
+    
+    return self;
+}
+
+- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext willCleanupEverything:(BOOL)willCleanupEverything {
+    if (self = [self initWithClass:class array:array willCleanupEverything:willCleanupEverything]) {
+        self.context = [self contextWithParentContext:parentContext];
+    }
+    
+    return self;
+}
+
+- (NSManagedObjectContext *)contextWithParentContext:(NSManagedObjectContext *)parentContext {
+    if (parentContext == nil) {
+        parentContext = [NSManagedObjectContext MR_rootSavingContext];
+    }
+    
+    NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithParent:parentContext];
+    [context setUndoManager:nil];
+    [context setMergePolicy:[[NSMergePolicy alloc] initWithMergeType:NSOverwriteMergePolicyType]];
+    
+    return context;
+}
 
 - (id)initToSaveDefaultContext {
     self = [self init];
@@ -176,14 +234,14 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         }
 
         if (!self.isCancelled) {
-
+            
             if (self.completionBlockWithResults) {
-
-                if (self.shouldSaveToPersistentStore) {
-
-                    /**
-                     *  MR_saveToPersistentStoreWithCompletion will return on main thread
-                     */
+                /**
+                 *  MR_saveToPersistentStoreWithCompletion will return on main thread
+                 */
+//                self.context MR_save
+            
+//                if (self.shouldSaveToPersistentStore) {
                     [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
                         if (self.willReturnCompletionBlockWithMainThreadObjects) {
                             self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
@@ -192,38 +250,28 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                         }
                         
                         self.completionBlockWithResults(self.results, error);
-
                     }];
-                } else {
-                    
-                    //To updated object to parent context
-                    [self.context MR_saveOnlySelfAndWait];
-                    
-                    if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                        self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-                    } else {
-                        self.results = nil;
-                    }
-                    
-                    dispatch_async(dispatch_get_main_queue(), ^{
-
-                        self.completionBlockWithResults(self.results, nil);
-                    });
-                }
+//                } else {
+//                    [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+//                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
+//                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+//                        } else {
+//                            self.results = nil;
+//                        }
+//                        
+//                        self.completionBlockWithResults(self.results, error);
+//                    }];
+//                }
+                
             } else {
-                if (self.shouldSaveToPersistentStore) {
-
-                    [self.context MR_saveToPersistentStoreAndWait];
-                } else {
-                    
-                    //To updated object to parent context
-                    [self.context MR_saveOnlySelfAndWait];
-                }
+                
+                //To updated object to parent context
+                [self.context MR_saveToPersistentStoreAndWait];
             }
-
+            
             GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]);
             GGCDLOG(@"--end-- %@",self);
-
+            
         } else {
             self.results = nil;
         }
@@ -348,20 +396,20 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return results;
 }
 
-- (void)save:(NSManagedObjectContext *)context block:(void(^)(NSError * _Nullable error)) block {
-
-    if (self.shouldSaveToPersistentStore) {
-
-        [context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            block(error);
-        }];
-
-    } else {
-        [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-            block(error);
-        }];
-    }
-}
+//- (void)save:(NSManagedObjectContext *)context block:(void(^)(NSError * _Nullable error)) block {
+//
+//    if (self.shouldSaveToPersistentStore) {
+//
+//        [context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+//            block(error);
+//        }];
+//
+//    } else {
+//        [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+//            block(error);
+//        }];
+//    }
+//}
 
 /**
  *  Check the object existing in context by the value of primary key
@@ -582,8 +630,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
             id primaryValue = [obj valueForKey:@"objectID"];
 
             NSArray *arr = [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self = %@", primaryValue] inContext:self.defaultContext];
-
-            //            NSAssert([arr count] == 1, @"arr count must be equal 1");
 
             [results addObjectsFromArray:arr];
 
