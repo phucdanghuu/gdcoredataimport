@@ -242,15 +242,17 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 //                self.context MR_save
             
 //                if (self.shouldSaveToPersistentStore) {
-                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-                        } else {
-                            self.results = nil;
-                        }
-                        
-                        self.completionBlockWithResults(self.results, error);
-                    }];
+                [self.context MR_saveToPersistentStoreAndWait];
+                //                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+                if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                    self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                } else {
+                    self.results = nil;
+                }
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.completionBlockWithResults(self.results, nil);
+                });
 //                } else {
 //                    [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
 //                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
