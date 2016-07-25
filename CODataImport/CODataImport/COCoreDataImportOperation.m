@@ -39,11 +39,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 - (id)init {
     self = [super init];
     if (self) {
-//        self.shouldSaveToPersistentStore = YES;
+        self.shouldSaveToPersistentStore = YES;
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
         self.willCleanupEverything = NO;
 
-        self.context = [self contextWithParentContext:[NSManagedObjectContext MR_rootSavingContext]];
+        self.context = [self contextWithParentContext:[NSManagedObjectContext MR_defaultContext]];
     }
     return self;
 }
@@ -90,6 +90,15 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
+    self = [self initNoIdObjectWithClass:class dictionary:dictionary];
+    if (self) {
+        self.context = [self contextWithParentContext:parentContext];
+
+    }
+    return self;
+}
+
 - (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
     self = [self initWithClass:class array:array];
 
@@ -128,7 +137,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 - (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
     if ( self = [self initWithClass:class dictionary:dictionary]) {
-        
+        self.context = [self contextWithParentContext:parentContext];
     }
     
     return self;
@@ -142,13 +151,13 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
-    if (self = [self initWithClass:class dictionary:dictionary]) {
-        self.context = [self contextWithParentContext:parentContext];
-    }
-    
-    return self;
-}
+//- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext {
+//    if (self = [self initWithClass:class dictionary:dictionary]) {
+//        self.context = [self contextWithParentContext:parentContext];
+//    }
+//    
+//    return self;
+//}
 
 - (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext isCleanAndCreate:(BOOL)isCleanAndCreate {
     if (self = [self initWithClass:class array:array isCleanAndCreate:isCleanAndCreate]) {
@@ -165,6 +174,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     
     return self;
 }
+
 
 - (NSManagedObjectContext *)contextWithParentContext:(NSManagedObjectContext *)parentContext {
     if (parentContext == nil) {
@@ -241,28 +251,33 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                  */
 //                self.context MR_save
             
-//                if (self.shouldSaveToPersistentStore) {
-                [self.context MR_saveToPersistentStoreAndWait];
-                //                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-                if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                    self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                if (self.shouldSaveToPersistentStore) {
+                    [self.context MR_saveToPersistentStoreAndWait];
+                    //                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+              
                 } else {
-                    self.results = nil;
+                    [self.context MR_saveOnlySelfAndWait];
+//                    [self.context.parentContext MR_saveOnlySelfAndWait];
                 }
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.completionBlockWithResults(self.results, nil);
-                });
-//                } else {
-//                    [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-//                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
-//                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-//                        } else {
-//                            self.results = nil;
-//                        }
-//                        
-//                        self.completionBlockWithResults(self.results, error);
-//                    }];
+                    if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                        self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                    } else {
+                        self.results = nil;
+                    }
+                    
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        self.completionBlockWithResults(self.results, nil);
+                    });
+                    
+                    //                    [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
+                    //                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
+                    //                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
+                    //                        } else {
+                    //                            self.results = nil;
+                    //                        }
+                    //                        
+                    //                        self.completionBlockWithResults(self.results, error);
+                    //                    }];
 //                }
                 
             } else {
@@ -278,6 +293,17 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
             self.results = nil;
         }
     }
+}
+
+- (void)setShouldSaveToPersistentStore:(BOOL)shouldSaveToPersistentStore {
+    
+    _shouldSaveToPersistentStore = shouldSaveToPersistentStore;
+    
+//    if (_shouldSaveToPersistentStore) {
+//        
+//    } else {
+//        
+//    }
 }
 
 
@@ -620,7 +646,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 #pragma mark - Helper Method
 
 - (NSArray *)objsInMainThreadWithObjs:(NSArray *)objs {
-    //    NSDate *date = [NSDate date];
+        NSDate *date = [NSDate date];
     NSError *error;
     Class class = [objs.lastObject class];
     if ([self.context obtainPermanentIDsForObjects:objs error:&error]) {
