@@ -13,6 +13,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 #define DefaultContext [NSManagedObjectContext MR_defaultContext]
 
+
 @interface COCoreDataImportOperation ()
 
 @property (nonatomic, strong) Class dataClass;
@@ -146,7 +147,8 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 - (void)main {
     NSDate *startDate = [NSDate date];
-    GGCDLOG(@"--start-- %@",self);
+    [COCoreDataImportOperation log:[NSString stringWithFormat:@"--start-- %@",self]];
+//    GGCDLOG();
 //    self.defaultContext = [NSManagedObjectContext MR_defaultContext];
 
     if (self.dataClass && [self.dataClass isSubclassOfClass:[NSManagedObject class]] == NO) {
@@ -234,8 +236,10 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                 [self.dataImportContext MR_saveToPersistentStoreAndWait];
             }
             
-            GGCDLOG(@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]);
-            GGCDLOG(@"--end-- %@",self);
+            [COCoreDataImportOperation log:[NSString stringWithFormat:@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]]];
+
+           [COCoreDataImportOperation log:[NSString stringWithFormat:@"--end-- %@",self]];
+            
             
         } else {
             self.results = nil;
@@ -256,9 +260,9 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 
 - (void)dealloc {
-    GGCDLOG(@"dealloc operation %@",self);
-
+    [COCoreDataImportOperation log:[NSString stringWithFormat:@"dealloc operation %@",self]];
 }
+
 - (void)updateManagedObject:(NSManagedObject *)managedObject withRecord:(NSDictionary *)record {
     [record enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (self.isCancelled) {
@@ -317,7 +321,8 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                 NSManagedObject *object = objectWithIds[objectCounter];
 
                 if ([object isDeleted]) {
-                    GGCDLOG(@"object %@ has been deleted", object);
+                    [COCoreDataImportOperation log:[NSString stringWithFormat:@"object %@ has been deleted", object]];
+
                     willCreate = YES;
                 } else {
 
@@ -336,8 +341,8 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
             if (willCreate) {
                 // create object with id objectId
+                [COCoreDataImportOperation log:[NSString stringWithFormat:@"will create %@", data]];
 
-                GGCDLOG(@"will create %@", data);
                 NSManagedObject *newObject = [self importObjectOfClass:class fromData:data];
                 [sortedResults addObject:newObject];
             }
@@ -611,10 +616,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
         }
 
-        GGCDLOG(@"fetch main thread objs in %f",[[NSDate date] timeIntervalSinceDate:date]);
+        [COCoreDataImportOperation log:[NSString stringWithFormat:@"fetch main thread objs in %f",[[NSDate date] timeIntervalSinceDate:date]]];
+
         return results;
-    }else {
-        GGCDLOG(@"%@",error);
+    } else {
+        [COCoreDataImportOperation log:[NSString stringWithFormat:@"%@",error]];
     }
 
     return nil;
@@ -709,6 +715,19 @@ static NSString *_dateFormat = nil;
     _dateFormat = dateFormat;
 }
 
+static BOOL showLog = YES;
+
++ (void)setShowLog:(BOOL)show {
+    
+    showLog = show;
+}
+
+
++ (void)log:(NSString *)log {
+    if (showLog) {
+        NSLog(@"%@", log);
+    }
+}
 
 @end
 

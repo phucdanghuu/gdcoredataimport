@@ -23,13 +23,13 @@ FOUNDATION_EXPORT const unsigned char DataImportVersionString[];
 #import "COCoreDataQueue.h"
 //#import <Crashlytics/Crashlytics.h>
 
-#define kIS_SHOW_ERROR YES
-
-
-#ifdef kIS_SHOW_ERROR
-  #define GGCDLOG(__FORMAT__, ...) NSLog((@"%s line %d $ " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
-#else
-#define GGCDLOG(__FORMAT__, ...) 
-#endif
-
+//#define kIS_SHOW_ERROR YES
+//
+//
+//#ifdef kIS_SHOW_ERROR
+//  #define GGCDLOG(__FORMAT__, ...) NSLog((@"%s line %d $ " __FORMAT__), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+//#else
+//#define GGCDLOG(__FORMAT__, ...) 
+//#endif
+//
 

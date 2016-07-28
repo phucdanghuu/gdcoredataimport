@@ -25,7 +25,6 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
  */
 @property (nonatomic, assign) BOOL shouldSaveToPersistentStore;
 @property (nonatomic) BOOL willCleanupEverything;
-
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 
 
@@ -51,7 +50,7 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat;
 
 + (id)mapping;
-
++ (void)setShowLog:(BOOL)show;
 @end
 
 
