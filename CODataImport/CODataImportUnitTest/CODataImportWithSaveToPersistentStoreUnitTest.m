@@ -14,13 +14,13 @@
 #import "Room_Student.h"
 #import "TestingUtils.h"
 
-@interface CODataImportUnitTest : XCTestCase
+@interface CODataImportWithSaveToPersistentStoreUnitTest : XCTestCase
 
 @property (nonatomic) NSManagedObjectContext *testingContext;
 
 @end
 
-@implementation CODataImportUnitTest
+@implementation CODataImportWithSaveToPersistentStoreUnitTest
 
 
 - (void)setUp {
@@ -31,9 +31,6 @@
     self.testingContext = [NSManagedObjectContext MR_defaultContext];
     
 }
-
-
-
 
 - (void)tearDown {
     // Put teardown code here. This method is called after the invocation of each test method in the class.
@@ -46,17 +43,32 @@
     [TestingUtils cleanUpTestingDatabase];
 }
 
-- (void)assertNoObjectsInPersistenstore:(NSArray<NSManagedObject *> *)objects {
-    
-    NSArray *resultsInPersistentStore = [TestingUtils arrayOfManagedObjects:objects inContext:[NSManagedObjectContext MR_rootSavingContext]];
-    XCTAssertEqual(resultsInPersistentStore.count, 0);
+- (void)testExample {
+    // This is an example of a functional test case.
+    // Use XCTAssert and related functions to verify your tests produce the correct results.
 }
-//
-//- (void)testExample {
-//    // This is an example of a functional test case.
-//    // Use XCTAssert and related functions to verify your tests produce the correct results.
-//}
 
+
+- (BOOL)isStudent:(Student *)obj1 equalTo:(Student *)obj2 {
+    return [obj1.id isEqualToNumber:obj2.id] && [obj1.name isEqualToString:obj2.name];
+
+}
+
+
+- (BOOL)allObjectsIsTheSameInPersistentStore:(NSArray *)results {
+//    BOOL isObjsIsEqualToObjInPersistenstore = [TestingUtils isObjsIsEqualToObjInPersistenstore:results matching:^BOOL(NSManagedObject *obj1, NSManagedObject *obj2) {
+//        
+//        return [self isStudent:obj1 equalTo:obj2];
+//    }];
+//    return isObjsIsEqualToObjInPersistenstore;
+    for (NSManagedObject *obj in results) {
+        if (obj.hasPersistentChangedValues) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
 
 /**
  *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
@@ -73,14 +85,14 @@
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
     
-        operation.shouldSaveToPersistentStore = NO;
+    //    operation.shouldSaveToPersistentStore = YES;
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 2);
         
-        [self assertNoObjectsInPersistenstore:results];
-
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
+        
         done = YES;
         
     };
@@ -99,6 +111,16 @@
     
 }
 
+//- (void)isStudentsInPersistenstore:(NSArray *)results {
+//    int expressionValue2;
+//    BOOL isObjsIsEqualToObjInPersistenstore = [TestingUtils isObjsIsEqualToObjInPersistenstore:results matching:^BOOL(NSManagedObject *obj1, NSManagedObject *obj2) {
+//        
+//        return [self isStudent:obj1 equalTo:obj2];
+//    }];
+//    
+//    XCTAssertEqual(isObjsIsEqualToObjInPersistenstore, YES);
+//}
+
 /**
  *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
  */
@@ -114,7 +136,7 @@
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
     
-        operation.shouldSaveToPersistentStore = NO;
+    //    operation.shouldSaveToPersistentStore = NO;
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
@@ -126,7 +148,7 @@
         XCTAssertTrue([firstObject.name isEqualToString:@"name 1"], @"results return false");
         XCTAssertTrue([secondObject.name isEqualToString:@"name 2"], @"results return false");
         
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         //      NSManagedObjectContext *context = [NSManagedObjectContext MR_contextWithStoreCoordinator:[NSPersistentStoreCoordinator MR_defaultStoreCoordinator]];
         
         //      NSArray *arr = [Student MR_findAllInContext:context];
@@ -196,12 +218,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 2);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };
@@ -248,12 +270,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 2);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };
@@ -303,17 +325,13 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"]  context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 2);
         XCTAssertEqual(results[0], results[1]);
-//        [self assertNoObjectsInPersistenstore:results];
-        NSArray *resultsInPersistentStore = [TestingUtils arrayOfManagedObjects:results inContext:[NSManagedObjectContext MR_rootSavingContext]];
-
-        Student *studentInPersistentSotre = resultsInPersistentStore.firstObject;
-        XCTAssertNil(studentInPersistentSotre.name);
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         
         done = YES;
         
@@ -362,11 +380,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         XCTAssertEqual(results.count, 2);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
+        
         done = YES;
         
     };
@@ -402,12 +421,13 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 0);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
+        
         done = YES;
         
     };
@@ -444,11 +464,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         XCTAssertEqual(results.count, 0);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
+        
         done = YES;
         
     };
@@ -546,12 +567,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic1[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 2);
-        
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         
         
         NSDictionary *dic2  = @{
@@ -572,11 +593,11 @@
         
         COCoreDataImportOperation *operation2 = [[COCoreDataImportOperation alloc] initWithClass:[Room class] array:dic2[@"data"] context:self.testingContext];
         
-        operation2.shouldSaveToPersistentStore = NO;
+        
         operation2.willCleanupEverything = true;
         operation2.completionBlockWithResults = ^(NSArray *results, NSError *error) {
             XCTAssertEqual(results.count, 2);
-            [self assertNoObjectsInPersistenstore:results];
+            XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
             done = YES;
             
         };
@@ -625,7 +646,7 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         XCTAssertEqual(results.count, 2);
@@ -640,7 +661,8 @@
         XCTAssertTrue([roomStudent2.room_id isEqualToString:@"1"]);
         
         XCTAssertNotEqual(roomStudent1, roomStudent2);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
+        
         done = YES;
         
     };
@@ -676,12 +698,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 1);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };
@@ -717,12 +739,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 1);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };
@@ -754,12 +776,12 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] dictionary:dic[@"data"] context:self.testingContext];
-    operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         
         XCTAssertEqual(results.count, 1);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };
@@ -795,11 +817,11 @@
     static BOOL done = NO;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room class] dictionary:dic[@"data"] context:self.testingContext];
-   operation.shouldSaveToPersistentStore = NO;
+    
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         
         XCTAssertEqual(results.count, 1);
-        [self assertNoObjectsInPersistenstore:results];
+        XCTAssertEqual([self allObjectsIsTheSameInPersistentStore:results], YES);
         done = YES;
         
     };

@@ -28,32 +28,22 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 
-//- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext;
-//- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext;
-//- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext;
-// to create new object without id (so that we will wait for the id to arrive later
-//- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary parentContext:(NSManagedObjectContext *)parentContext;
-//- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext;
 
-//- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext willCleanupEverything:(BOOL)willCleanupEverything;
-//- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext isCleanAndCreate:(BOOL)isCleanAndCreate;
-//- (id)initWithClass:(Class)class array:(NSArray *)array parentContext:(NSManagedObjectContext *)parentContext;
-- (id)initWithClass:(Class)class array:(NSArray *)array;
-- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
-// to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array;
+- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context;
+- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context;
 
-- (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
-- (id)initWithClass:(Class)class array:(NSArray *)array isCleanAndCreate:(BOOL)isCleanAndCreate;
-// merge a context with the default context
-//- (id)initWithManagedObjectContext:(NSManagedObjectContext *)context;
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context;
+// to create new object without id (so that we will wait for the id to arrive later
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context;
+
+// to create new object without id (so that we will wait for the id to arrive later
+- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context
+        willCleanupEverything:(BOOL)willCleanupEverything;
+
+
 
 - (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects;
 
-
-
-+ (NSArray *)objsInContext:(NSManagedObjectContext *)context fromMainThreadObjs:(NSArray *)objs;
 + (NSString *)defaultDateFormat;
 + (void) setDefaultDateFormat:(NSString *)dateFormat;
 
@@ -65,6 +55,18 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 @end
 
 
+
+@interface COCoreDataImportOperation (MR_defaultContext)
+- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
+- (id)initWithClass:(Class)class array:(NSArray *)array;
+
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
+// to create new object without id (so that we will wait for the id to arrive later
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array;
+
+// to create new object without id (so that we will wait for the id to arrive later
+- (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
+@end
 
 @interface COCoreDataMapping : NSObject
 

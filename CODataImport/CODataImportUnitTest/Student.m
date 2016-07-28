@@ -11,5 +11,7 @@
 @implementation Student
 
 // Insert code here to add functionality to your managed object subclass
-
+//- (BOOL)isEqual:(Student *)object {
+//    return [self.id isEqual:object.id] && [self.name isEqual:object.name];
+//}
 @end

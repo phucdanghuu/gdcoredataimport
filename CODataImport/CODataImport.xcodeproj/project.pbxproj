@@ -14,6 +14,7 @@
 		6E2229661BE85D3C009A0C50 /* COCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229611BE85D3C009A0C50 /* COCoreDataBlockOperation.m */; };
 		6E2229681BE85D3C009A0C50 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */; };
 		6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
+		6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */; };
 		6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 		6EA261BC1C4C9B7900AC5316 /* Room+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */; };
 		6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261BB1C4C9B7900AC5316 /* Room.m */; };
@@ -66,6 +67,7 @@
 		6E4105B41BE8730700151BDB /* CODataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CODataImport.h; sourceTree = "<group>"; };
 		6E4105B51BE8A01500151BDB /* COCoreDataImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCoreDataImportOperation.h; sourceTree = "<group>"; };
 		6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCoreDataImportOperation.m; sourceTree = "<group>"; };
+		6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODataImportWithSaveToPersistentStoreUnitTest.m; sourceTree = "<group>"; };
 		6E54870B1BB8F79C003E0D0A /* libCODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCODataImport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E84B7C31BE76F1B00BB5446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6EA261B81C4C9B7900AC5316 /* Room+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room+CoreDataProperties.h"; sourceTree = "<group>"; };
@@ -125,6 +127,7 @@
 		6E1BF69B1C47619900E33462 /* CODataImportUnitTest */ = {
 			isa = PBXGroup;
 			children = (
+				6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */,
 				6EDDD9E21C4E580F00D43085 /* Utils */,
 				6E1BF6B41C47897E00E33462 /* Models */,
 				6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */,
@@ -391,6 +394,7 @@
 				6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */,
 				6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */,
 				6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */,
+				6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */,
 				6ED3DBAA1C47A84100DA284B /* Model.xcdatamodeld in Sources */,
 				6ED5E67A1C4CDA40002973EC /* COImportDataWithCleanUp.m in Sources */,
 			);

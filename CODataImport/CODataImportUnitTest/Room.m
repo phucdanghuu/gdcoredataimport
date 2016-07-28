@@ -14,5 +14,10 @@
 + (NSString *)primaryKey {
   return @"room_id";
 }
-
+//
+//- (BOOL)isEqual:(Room *)object {
+//    for (Student *student in self.students.allObjects) {
+//        if (student)
+//    }
+//}
 @end
