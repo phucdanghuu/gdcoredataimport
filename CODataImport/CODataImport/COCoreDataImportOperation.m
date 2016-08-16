@@ -48,7 +48,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         self.willReturnCompletionBlockWithMainThreadObjects = YES;
         self.willCleanupEverything = NO;
         
-        self.dataImportContext = [self contextWithParentContext:[NSManagedObjectContext MR_defaultContext]];
+        self.dataImportContext = [self contextWithParentContext:context];
     }
     
     return self;
