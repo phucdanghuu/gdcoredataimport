@@ -39,9 +39,10 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 - (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context
         willCleanupEverything:(BOOL)willCleanupEverything;
 
+- (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects __attribute__((deprecated("Should use function willReturnCompletionBlockWithObjectsInParentContext:")));
 
+- (void)willReturnCompletionBlockWithObjectsInParentContext:(BOOL)willReturnCompletionBlockWithObjectsInParentContext;
 
-- (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects;
 
 + (NSString *)defaultDateFormat;
 + (void) setDefaultDateFormat:(NSString *)dateFormat;

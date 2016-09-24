@@ -13,7 +13,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 #define DefaultContext [NSManagedObjectContext MR_defaultContext]
 
-
 @interface COCoreDataImportOperation ()
 
 @property (nonatomic, strong) Class dataClass;
@@ -21,20 +20,16 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @property (nonatomic, strong) NSDictionary *dictionary;
 
 @property (nonatomic, strong) NSManagedObjectContext *dataImportContext;
-//@property (nonatomic, strong) NSManagedObjectContext *defaultContext;
 
-@property (nonatomic, strong) NSArray *results;
+//@property (nonatomic, strong) NSArray *results;
 
 //additional objects and relationship mapping
 @property (nonatomic, strong) NSMutableDictionary *additionalDataDictionary;
 @property (nonatomic, strong) NSMutableArray *relationshipArray;
 
-@property (nonatomic) BOOL willReturnCompletionBlockWithMainThreadObjects;
+@property (nonatomic) BOOL willReturnCompletionBlockWithObjectsInParentContext;
 @property (nonatomic) BOOL isCleanAndCreate;
 @property (nonatomic) BOOL isNoId;
-
-//@property (nonatomic, strong) NSDate *date;
-//@property (atomic, assign)  BOOL waitingForBlock;
 
 @end
 
@@ -45,7 +40,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     
     if (self) {
         self.shouldSaveToPersistentStore = YES;
-        self.willReturnCompletionBlockWithMainThreadObjects = YES;
+        self.willReturnCompletionBlockWithObjectsInParentContext = YES;
         self.willCleanupEverything = NO;
         
         self.dataImportContext = [self contextWithParentContext:context];
@@ -74,9 +69,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     self = [self initWithClass:class array:array context:context];
     if (self) {
         self.willCleanupEverything = willCleanupEverything;
-
-
-
     }
     return self;
 }
@@ -93,46 +85,63 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 - (id)initNoIdObjectWithContext:(NSManagedObjectContext *)context {
     self = [self initWithContext:context];
+    
     if (self) {
         self.isNoId = YES;
     }
+    
     return self;
 }
 
 - (id)initNoIdObjectWithClass:(Class)class context:(NSManagedObjectContext *)context {
     self = [self initNoIdObjectWithContext:context];
+    
     if (self) {
         self.dataClass = class;
     }
+    
     return self;
 }
 
 - (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context {
     self = [self initNoIdObjectWithClass:class context:context];
+    
     if (self) {
         self.dictionary = dictionary;
-
     }
+    
     return self;
 }
 - (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context {
     self = [self initNoIdObjectWithClass:class context:context];
+    
     if (self) {
         self.array = array;
         
     }
+    
     return self;
 }
 
 - (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context isCleanAndCreate:(BOOL)isCleanAndCreate {
     self = [self initWithClass:class array:array context:context];
+   
     if (self) {
         self.isCleanAndCreate = isCleanAndCreate;
-//        self.array = array;
     }
+    
     return self;
 }
 
+
+/**
+ Create a NSManagedObjectContext with parentContext.
+ Note: If parentContext is nil, get defaultContext is [NSManagedObjectContext MR_rootSavingContext]
+
+ @param parentContext <#parentContext description#>
+
+ @return <#return value description#>
+ */
 - (NSManagedObjectContext *)contextWithParentContext:(NSManagedObjectContext *)parentContext {
     if (parentContext == nil) {
         parentContext = [NSManagedObjectContext MR_rootSavingContext];
@@ -147,9 +156,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 - (void)main {
     NSDate *startDate = [NSDate date];
-    [COCoreDataImportOperation log:[NSString stringWithFormat:@"--start-- %@",self]];
-//    GGCDLOG();
-//    self.defaultContext = [NSManagedObjectContext MR_defaultContext];
+    [COCoreDataImportOperation log:[NSString stringWithFormat:@"--start-- %@", self]];
 
     if (self.dataClass && [self.dataClass isSubclassOfClass:[NSManagedObject class]] == NO) {
         NSError *error = [NSError errorWithDomain:@"CODataImport"
@@ -166,69 +173,60 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     }
 
 
-    if (self.willCleanupEverything||self.isCleanAndCreate) {
+    if (self.willCleanupEverything || self.isCleanAndCreate) {
         [self.dataClass MR_truncateAllInContext:self.dataImportContext];
     }
 
 
     NSArray<NSManagedObject *> *importedObjectInLocalContext;
 
+    NSArray *results = nil;
+    
     if (self.dataClass) {
-        if (self.isCleanAndCreate) {
-            self.results = [self createObjectsOfClass:self.dataClass fromArray:self.array];
-        }else {
-
-            if (self.isNoId) {
-                if(self.dictionary) {
-                    importedObjectInLocalContext = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
-                } else if (self.array) {
-                    importedObjectInLocalContext = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
-                }
-            }else {
-                if (self.array) {
-                    importedObjectInLocalContext = [self importObjectsOfClass:self.dataClass fromArray:self.array];
-                }else if(self.dictionary) {
-                    importedObjectInLocalContext = @[[self importObjectOfClass:self.dataClass fromData:self.dictionary]];
-                }
+        
+        if (self.isNoId) {
+            if(self.dictionary) {
+                importedObjectInLocalContext = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
+            } else if (self.array) {
+                importedObjectInLocalContext = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
             }
         }
-
+        else {
+            if (self.array) {
+                importedObjectInLocalContext = [self importObjectsOfClass:self.dataClass fromArray:self.array];
+            }else if(self.dictionary) {
+                importedObjectInLocalContext = @[[self importObjectOfClass:self.dataClass fromData:self.dictionary]];
+            }
+        }
+        
         if (!self.isCancelled) {
             
             if (self.completionBlockWithResults) {
                 /**
-                 *  MR_saveToPersistentStoreWithCompletion will return on main thread
+                 *  Save data into persistentStore ore onlySelf
                  */
-//                self.context MR_save
-            
                 if (self.shouldSaveToPersistentStore) {
                     [self.dataImportContext MR_saveToPersistentStoreAndWait];
-                    //                    [self.context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-              
-                } else {
-                    [self.dataImportContext MR_saveOnlySelfAndWait];
-//                    [self.context.parentContext MR_saveOnlySelfAndWait];
                 }
-                    if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                        self.results = [self arrayOfManagedObjects:importedObjectInLocalContext inContext:self.dataImportContext.parentContext];
-                    } else {
-                        self.results = nil;
-                    }
+                else {
+                    [self.dataImportContext MR_saveOnlySelfAndWait];
+                }
+                
+                /**
+                 * Return data by passing to block
+                 **/
+                if (self.willReturnCompletionBlockWithObjectsInParentContext && self.completionBlockWithResults) {
+                    results = [self arrayOfManagedObjects:importedObjectInLocalContext
+                                                inContext:self.dataImportContext.parentContext];
                     
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        self.completionBlockWithResults(self.results, nil);
+                        self.completionBlockWithResults(results, nil);
                     });
                     
-                    //                    [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-                    //                        if (self.willReturnCompletionBlockWithMainThreadObjects) {
-                    //                            self.results = [self objsInMainThreadWithObjs:importedObjectInLocalContext];
-                    //                        } else {
-                    //                            self.results = nil;
-                    //                        }
-                    //                        
-                    //                        self.completionBlockWithResults(self.results, error);
-                    //                    }];
-//                }
+                }
+                else {
+                    results = nil;
+                }
                 
             } else {
                 
@@ -237,12 +235,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
             }
             
             [COCoreDataImportOperation log:[NSString stringWithFormat:@"save context with time %f",[[NSDate date] timeIntervalSinceDate:startDate]]];
-
-           [COCoreDataImportOperation log:[NSString stringWithFormat:@"--end-- %@",self]];
+            [COCoreDataImportOperation log:[NSString stringWithFormat:@"--end-- %@",self]];
             
-            
-        } else {
-            self.results = nil;
+        }
+        else {
+            [COCoreDataImportOperation log:[NSString stringWithFormat:@"--end-- because has been cancelled %@",self]];
         }
     }
 }
@@ -376,21 +373,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
     return results;
 }
-
-//- (void)save:(NSManagedObjectContext *)context block:(void(^)(NSError * _Nullable error)) block {
-//
-//    if (self.shouldSaveToPersistentStore) {
-//
-//        [context MR_saveToPersistentStoreWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-//            block(error);
-//        }];
-//
-//    } else {
-//        [self.context MR_saveOnlySelfWithCompletion:^(BOOL contextDidSave, NSError * _Nullable error) {
-//            block(error);
-//        }];
-//    }
-//}
 
 /**
  *  Check the object existing in context by the value of primary key
@@ -561,8 +543,13 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 
 - (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects {
-    self.willReturnCompletionBlockWithMainThreadObjects = willReturnCompletionBlockWithMainThreadObjects;
+    self.willReturnCompletionBlockWithObjectsInParentContext = willReturnCompletionBlockWithMainThreadObjects;
 }
+
+- (void)willReturnCompletionBlockWithObjectsInParentContext:(BOOL)willReturnCompletionBlockWithObjectsInParentContext {
+    self.willReturnCompletionBlockWithObjectsInParentContext = willReturnCompletionBlockWithObjectsInParentContext;
+}
+
 #pragma mark - Get Class Name
 
 + (NSString *)classNameOfAttribute:(NSString *)attributeName object:(NSManagedObject *)object {
@@ -625,15 +612,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
     return nil;
 }
-
-//+ (NSArray *)objsInContext:(NSManagedObjectContext *)context fromMainThreadObjs:(NSArray *)objs {
-//    NSManagedObject *object = objs.lastObject;
-//    if (object.managedObjectContext != [NSManagedObjectContext MR_defaultContext]) {
-//        return nil;
-//    }
-//    Class class = [objs.lastObject class];
-//    return [class MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"self IN %@", [objs valueForKey:@"objectID"]] inContext:context];
-//}
 
 - (NSArray *)managedObjectsForClass:(Class)class inArrayOfIds:(NSArray *)idArray {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"%K IN %@",

@@ -15,6 +15,7 @@
 		6E2229681BE85D3C009A0C50 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */; };
 		6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
 		6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */; };
+		6E7310E71D96F51300C2CF61 /* SmallSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7310E61D96F51300C2CF61 /* SmallSample.m */; };
 		6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 		6EA261BC1C4C9B7900AC5316 /* Room+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */; };
 		6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261BB1C4C9B7900AC5316 /* Room.m */; };
@@ -26,8 +27,8 @@
 		6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */; };
 		6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67E1C4CE4BD002973EC /* Room_Student.m */; };
 		6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD9E41C4E582F00D43085 /* TestingUtils.m */; };
-		E40B7BF54FA3CFC1C91A7B48 /* libPods-CODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */; };
-		F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */; };
+		93E70871F99C8E7C20F49D25 /* Pods_CODataImportUnitTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */; };
+		D1196CFF9B3F3FD1501684D6 /* Pods_CODataImport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB071B717855125B8A753DE /* Pods_CODataImport.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,7 +55,6 @@
 
 /* Begin PBXFileReference section */
 		1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
-		5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImportUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CODataImportUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CODataImportUnitTest.m; sourceTree = "<group>"; };
 		6E1BF69E1C47619900E33462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -69,6 +69,7 @@
 		6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCoreDataImportOperation.m; sourceTree = "<group>"; };
 		6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODataImportWithSaveToPersistentStoreUnitTest.m; sourceTree = "<group>"; };
 		6E54870B1BB8F79C003E0D0A /* libCODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCODataImport.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E7310E61D96F51300C2CF61 /* SmallSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallSample.m; sourceTree = "<group>"; };
 		6E84B7C31BE76F1B00BB5446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6EA261B81C4C9B7900AC5316 /* Room+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Room+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -86,8 +87,9 @@
 		6ED5E67E1C4CE4BD002973EC /* Room_Student.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Room_Student.m; sourceTree = "<group>"; };
 		6EDDD9E31C4E582F00D43085 /* TestingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingUtils.h; sourceTree = "<group>"; };
 		6EDDD9E41C4E582F00D43085 /* TestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingUtils.m; sourceTree = "<group>"; };
-		6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImport.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.release.xcconfig"; sourceTree = "<group>"; };
+		7FB071B717855125B8A753DE /* Pods_CODataImport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CODataImport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CODataImportUnitTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.debug.xcconfig"; sourceTree = "<group>"; };
 		E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -99,7 +101,7 @@
 			files = (
 				6E1BF69F1C47619900E33462 /* libCODataImport.a in Frameworks */,
 				6E1BF6BC1C479B0B00E33462 /* CoreData.framework in Frameworks */,
-				F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */,
+				93E70871F99C8E7C20F49D25 /* Pods_CODataImportUnitTest.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */,
-				E40B7BF54FA3CFC1C91A7B48 /* libPods-CODataImport.a in Frameworks */,
+				D1196CFF9B3F3FD1501684D6 /* Pods_CODataImport.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -118,8 +120,8 @@
 		2A890DB3D04C06BD5DCF8834 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */,
-				5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */,
+				7FB071B717855125B8A753DE /* Pods_CODataImport.framework */,
+				9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -133,6 +135,7 @@
 				6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */,
 				6E1BF69E1C47619900E33462 /* Info.plist */,
 				6ED5E6791C4CDA40002973EC /* COImportDataWithCleanUp.m */,
+				6E7310E61D96F51300C2CF61 /* SmallSample.m */,
 			);
 			path = CODataImportUnitTest;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 				TargetAttributes = {
 					6E1BF6991C47619900E33462 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 73HL765W2D;
 					};
 					6E54870A1BB8F79C003E0D0A = {
 						CreatedOnToolsVersion = 7.0;
@@ -330,7 +334,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		7DCA5159D397CF806EE16C79 /* [CP] Copy Pods Resources */ = {
@@ -360,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		D689648DA40C34CE67635225 /* [CP] Copy Pods Resources */ = {
@@ -392,6 +396,7 @@
 				6ED3DBB01C47A86000DA284B /* Student+CoreDataProperties.m in Sources */,
 				6ED3DBB21C47A86000DA284B /* Student.m in Sources */,
 				6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */,
+				6E7310E71D96F51300C2CF61 /* SmallSample.m in Sources */,
 				6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */,
 				6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */,
 				6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */,
@@ -427,9 +432,11 @@
 			baseConfigurationReference = 1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 73HL765W2D;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @loader_path/../Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -440,9 +447,11 @@
 			baseConfigurationReference = 7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */;
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = 73HL765W2D;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks @loader_path/../Frameworks @executable_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -483,7 +492,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -519,7 +528,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -531,6 +540,7 @@
 			baseConfigurationReference = CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -543,6 +553,7 @@
 			baseConfigurationReference = E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				ENABLE_BITCODE = NO;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
