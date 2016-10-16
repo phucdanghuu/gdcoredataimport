@@ -10,6 +10,18 @@
 #import "CODataImport.h"
 #import <CoreData/CoreData.h>
 
+@protocol NSDictionaryConvertible <NSObject>
+
+//- (void)setValue:(nullable id)value forKey:(NSString *)key;
+
+- (NSDictionary *)asDictionary;
+
+@end
+
+@interface NSDictionary (NSDictionaryConvertible)<NSDictionaryConvertible>
+
+@end
+
 /**
  *  Did notification will be posted if saveToPersistenStore has any problems
  */
@@ -28,15 +40,15 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 
 
-- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context;
-- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context;
+- (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context;
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context;
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
 
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context
         willCleanupEverything:(BOOL)willCleanupEverything;
 
 - (void)willReturnCompletionBlockWithMainThreadObjects:(BOOL)willReturnCompletionBlockWithMainThreadObjects __attribute__((deprecated("Should use function willReturnCompletionBlockWithObjectsInParentContext:")));
@@ -57,15 +69,15 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 
 
 @interface COCoreDataImportOperation (MR_defaultContext)
-- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
-- (id)initWithClass:(Class)class array:(NSArray *)array;
+- (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary;
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array;
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary;
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary;
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array;
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array;
 
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything;
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array willCleanupEverything:(BOOL)willCleanupEverything;
 @end
 
 @interface COCoreDataMapping : NSObject

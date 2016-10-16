@@ -13,11 +13,19 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 #define DefaultContext [NSManagedObjectContext MR_defaultContext]
 
+@implementation NSDictionary (NSDictionaryConvertible)
+
+- (NSDictionary *)asDictionary {
+    return self;
+}
+
+@end
+
 @interface COCoreDataImportOperation ()
 
 @property (nonatomic, strong) Class dataClass;
-@property (nonatomic, strong) NSArray *array;
-@property (nonatomic, strong) NSDictionary *dictionary;
+@property (nonatomic, strong) NSArray<NSDictionary *> *array;
+@property (nonatomic, strong) NSDictionary* dictionary;
 
 @property (nonatomic, strong) NSManagedObjectContext *dataImportContext;
 
@@ -57,15 +65,15 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
-- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context {
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context {
     self = [self initWithClass:class context:context];
     if (self) {
-        self.array = array;
+        self.array = [self convertToArrayOfDictionary:array];
     }
     return self;
 }
 
-- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context willCleanupEverything:(BOOL)willCleanupEverything    {
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context willCleanupEverything:(BOOL)willCleanupEverything    {
     self = [self initWithClass:class array:array context:context];
     if (self) {
         self.willCleanupEverything = willCleanupEverything;
@@ -73,11 +81,11 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
-- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context{
+- (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context{
     self = [self initWithClass:class context:context];
     
     if (self) {
-        self.dictionary = dictionary;
+        self.dictionary = [dictionary asDictionary];
     }
     
     return self;
@@ -103,27 +111,40 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary context:(NSManagedObjectContext *)context {
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context {
     self = [self initNoIdObjectWithClass:class context:context];
     
     if (self) {
-        self.dictionary = dictionary;
+        self.dictionary = [dictionary asDictionary];
+
     }
     
     return self;
 }
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context {
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context {
     self = [self initNoIdObjectWithClass:class context:context];
     
     if (self) {
-        self.array = array;
+      
+        
+        self.array = [self convertToArrayOfDictionary:array];
         
     }
     
     return self;
 }
 
-- (id)initWithClass:(Class)class array:(NSArray *)array context:(NSManagedObjectContext *)context isCleanAndCreate:(BOOL)isCleanAndCreate {
+    - (NSArray<NSDictionary *> *)convertToArrayOfDictionary:(NSArray<id<NSDictionaryConvertible>> *)array {
+        NSMutableArray *arr = [NSMutableArray array];
+        
+        for (id<NSDictionaryConvertible> object in array) {
+            [arr addObject:[object asDictionary]];
+        }
+        
+        return arr;
+    }
+    
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context isCleanAndCreate:(BOOL)isCleanAndCreate {
     self = [self initWithClass:class array:array context:context];
    
     if (self) {
@@ -284,7 +305,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return results;
 }
 
-- (NSArray<NSManagedObject *> *)importObjectsOfClass:(Class)class fromArray:(NSArray *)array {
+- (NSArray<NSManagedObject *> *)importObjectsOfClass:(Class)class fromArray:(NSArray<NSDictionary *> *)array {
 
     NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:array.count];
 
@@ -711,7 +732,7 @@ static BOOL showLog = YES;
 
 @implementation COCoreDataImportOperation (MR_defaultContext)
 
-- (id)initWithClass:(Class)class dictionary:(NSDictionary *)dictionary {
+- (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary {
     self = [self initWithClass:class dictionary:dictionary context:DefaultContext];
     
     if (self) {
@@ -720,7 +741,7 @@ static BOOL showLog = YES;
     
     return self;
 }
-- (id)initWithClass:(Class)class array:(NSArray *)array {
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array {
     self = [self initWithClass:class array:array context:DefaultContext];
     
     if (self) {
@@ -730,7 +751,7 @@ static BOOL showLog = YES;
     return self;
 }
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(NSDictionary *)dictionary {
+- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary {
     self = [self initNoIdObjectWithClass:class dictionary:dictionary context:DefaultContext];
     
     if (self) {
@@ -740,7 +761,7 @@ static BOOL showLog = YES;
     return self;
 }
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray *)array {
+- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array {
     self = [self initNoIdObjectWithClass:class array:array context:DefaultContext];
     
     if (self) {
@@ -751,7 +772,7 @@ static BOOL showLog = YES;
 }
 
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initWithClass:(Class)class array:(NSArray *)array willCleanupEverything:(BOOL)willCleanupEverything {
+- (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array willCleanupEverything:(BOOL)willCleanupEverything {
     self = [self initWithClass:class array:array context:DefaultContext willCleanupEverything:willCleanupEverything];
     
     if (self) {
