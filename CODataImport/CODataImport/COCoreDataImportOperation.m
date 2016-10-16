@@ -39,6 +39,10 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @property (nonatomic) BOOL isCleanAndCreate;
 //@property (nonatomic) BOOL isNoId;
 
+
+@property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
+@property (nonatomic, copy) NSDictionary* (^customizedDataBeforeCreateOrUpdateAnManagedObjectBlock)(Class dataClass, NSDictionary *data);
+
 @end
 
 @implementation COCoreDataImportOperation
@@ -211,7 +215,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         
         if ([self isNoId:self.dataClass]) {
             if(self.dictionary) {
-                importedObjectInLocalContext = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
+                importedObjectInLocalContext = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary shouldCustomizeData:YES]];
             } else if (self.array) {
                 importedObjectInLocalContext = [self importNoIdObjectOfClass:self.dataClass fromArray:self.array];
             }
@@ -220,7 +224,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
             if (self.array) {
                 importedObjectInLocalContext = [self importObjectsOfClass:self.dataClass fromArray:self.array];
             }else if(self.dictionary) {
-                importedObjectInLocalContext = @[[self importObjectOfClass:self.dataClass fromData:self.dictionary]];
+                importedObjectInLocalContext = @[[self importObjectOfClass:self.dataClass fromData:self.dictionary shouldCustomizeData:YES]];
             }
         }
         
@@ -281,11 +285,30 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 }
 
 
+- (void)setCustomizedDataBeforeCreateOrUpdateAnManagedObjectBlock:(NSDictionary *(^)(__unsafe_unretained Class, NSDictionary *))willCreateOrUpdateAnManagedObject {
+    if (willCreateOrUpdateAnManagedObject) {
+        _customizedDataBeforeCreateOrUpdateAnManagedObjectBlock = [willCreateOrUpdateAnManagedObject copy];
+    } else {
+        _customizedDataBeforeCreateOrUpdateAnManagedObjectBlock = nil;
+    }
+    
+}
+- (void)setCompletionBlockWithResults:(void (^)(NSArray *, NSError *))completionBlockWithResults {
+    if (completionBlockWithResults) {
+        _completionBlockWithResults = [completionBlockWithResults copy];
+    } else {
+        _completionBlockWithResults = nil;
+    }
+    
+}
+
+
 - (void)dealloc {
     [COCoreDataImportOperation log:[NSString stringWithFormat:@"dealloc operation %@",self]];
 }
 
 - (void)updateManagedObject:(NSManagedObject *)managedObject withRecord:(NSDictionary *)record {
+    
     [record enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         if (self.isCancelled) {
             *stop =YES;
@@ -294,32 +317,50 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     }];
 }
 
-- (NSArray<NSManagedObject *> *)createObjectsOfClass:(Class)class fromArray:(NSArray *)array {
-    NSMutableArray *results = [NSMutableArray arrayWithCapacity:array.count];
-
-    for (NSDictionary *data in array) {
-        if (self.isCancelled) {
-            break;
+//- (NSArray<NSManagedObject *> *)createObjectsOfClass:(Class)class fromArray:(NSArray *)array {
+//    NSMutableArray *results = [NSMutableArray arrayWithCapacity:array.count];
+//
+//    for (NSDictionary *data in array) {
+//        if (self.isCancelled) {
+//            break;
+//        }
+//        NSManagedObject *newObject = [class MR_createInContext:self.dataImportContext];
+//        [self updateManagedObject:newObject withRecord:data];
+//        [results addObject:newObject];
+//    }
+//
+//    return results;
+//}
+- (NSArray<NSDictionary *> *)customizedArrayOfClass:(Class)class fromArray:(NSArray<NSDictionary *> *)array {
+    NSMutableArray *customizedArray = [NSMutableArray arrayWithCapacity:array.count];
+    
+    if (self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock) {
+        for (NSDictionary *dic in array) {
+            NSDictionary *customizedDic = self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock(class, dic);
+            
+            [customizedArray addObject:customizedDic];
         }
-        NSManagedObject *newObject = [class MR_createInContext:self.dataImportContext];
-        [self updateManagedObject:newObject withRecord:data];
-        [results addObject:newObject];
+        
+        return [customizedArray copy];
+    } else {
+        return array;
     }
 
-    return results;
 }
 
 - (NSArray<NSManagedObject *> *)importObjectsOfClass:(Class)class fromArray:(NSArray<NSDictionary *> *)array {
 
-    NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:array.count];
+    NSArray<NSDictionary *> *customizedArray = [self customizedArrayOfClass:class fromArray:array];
+    
+    NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:customizedArray.count];
 
     //create sort descriptor with ascending of pimary key
     NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[COCoreDataImportOperation primaryKeyFromClass:class]
                                                                  ascending:YES];
 
     NSArray *sortedArray = nil;
-    if (array != nil && array.count != 0) {
-        sortedArray = [array sortedArrayUsingDescriptors:@[descriptor]];
+    if (customizedArray != nil && customizedArray.count != 0) {
+        sortedArray = [customizedArray sortedArrayUsingDescriptors:@[descriptor]];
 
         //Array of primary key
         NSArray *ids = [sortedArray valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
@@ -365,7 +406,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
                 // create object with id objectId
                 [COCoreDataImportOperation log:[NSString stringWithFormat:@"will create %@", data]];
 
-                NSManagedObject *newObject = [self importObjectOfClass:class fromData:data];
+                NSManagedObject *newObject = [self importObjectOfClass:class fromData:data shouldCustomizeData:NO];
                 [sortedResults addObject:newObject];
             }
         }
@@ -375,7 +416,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     //load object with order by array
     NSMutableArray *results = [NSMutableArray array];
 
-    for (NSDictionary *obj in array) {
+    for (NSDictionary *obj in customizedArray) {
 
         id primaryValue = [obj objectForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
         NSArray *objects = [self managedObjectsForClass:class inArrayOfIds:@[primaryValue]];
@@ -409,8 +450,15 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
  *
  *  @return <#return value description#>
  */
-- (NSManagedObject *)importObjectOfClass:(Class)class fromData:(NSDictionary *)data {
-    id objectId = [data valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+- (NSManagedObject *)importObjectOfClass:(Class)class fromData:(NSDictionary *)data shouldCustomizeData:(BOOL)shouldCustomizeData {
+    
+    NSDictionary *updatedData = data;
+    
+    if (shouldCustomizeData && self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock) {
+        updatedData = self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock(class, data);
+    }
+    
+    id objectId = [updatedData valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
 
     NSManagedObject *object = nil;
     if (objectId != nil) {
@@ -430,20 +478,28 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
     }
 
-    [self updateManagedObject:object withRecord:data];
+    [self updateManagedObject:object withRecord:updatedData];
     return object;
 }
-- (NSManagedObject *)importNoIdObjectOfClass:(Class)class fromData:(NSDictionary *)data {
+- (NSManagedObject *)importNoIdObjectOfClass:(Class)class fromData:(NSDictionary *)data shouldCustomizeData:(BOOL)shouldCustomizeData {
+    NSDictionary *updatedData = data;
+    
+    if (shouldCustomizeData && self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock) {
+        updatedData = self.customizedDataBeforeCreateOrUpdateAnManagedObjectBlock(class, data);
+    }
+    
     NSManagedObject *object = [class MR_createInContext:self.dataImportContext];
-    [self updateManagedObject:object withRecord:data];
+    [self updateManagedObject:object withRecord:updatedData];
     return object;
 }
 
-- (NSArray<NSManagedObject *> *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray *)array {
+- (NSArray<NSManagedObject *> *)importNoIdObjectOfClass:(Class)class fromArray:(NSArray<NSDictionary *> *)array {
 
+    NSArray<NSDictionary *> *customizedArray = [self customizedArrayOfClass:class fromArray:array];
+    
     NSMutableArray *arrayOfObject = [NSMutableArray array];
 
-    for (NSDictionary *data in array) {
+    for (NSDictionary *data in customizedArray) {
         NSManagedObject *object = [class MR_createInContext:self.dataImportContext];
         [self updateManagedObject:object withRecord:data];
 
@@ -491,10 +547,10 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
             Class class = NSClassFromString(classNameOfRelationship);
 
             if ([COCoreDataImportOperation primaryKeyFromClass:class] != nil) {
-                object = [self importObjectOfClass:NSClassFromString(classNameOfRelationship) fromData:value];
+                object = [self importObjectOfClass:NSClassFromString(classNameOfRelationship) fromData:value shouldCustomizeData:YES];
                 
             } else {
-                object = [self importNoIdObjectOfClass:class fromData:value];
+                object = [self importNoIdObjectOfClass:class fromData:value shouldCustomizeData:YES];
             }
             
             
@@ -516,7 +572,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         }
     }else if (classNameOfMappingRelationship.length != 0) {
         NSDictionary *idDic = @{[COCoreDataImportOperation primaryKeyFromClass:NSClassFromString(classNameOfMappingRelationship)]: value};
-        NSManagedObject *object = [self importObjectOfClass:NSClassFromString(classNameOfMappingRelationship) fromData:idDic];
+        NSManagedObject *object = [self importObjectOfClass:NSClassFromString(classNameOfMappingRelationship) fromData:idDic shouldCustomizeData:YES];
         if (object) {
             [managedObject setValue:object forKey:[COCoreDataImportOperation destinationKeyFromMappingKey:key object:managedObject]];
         }

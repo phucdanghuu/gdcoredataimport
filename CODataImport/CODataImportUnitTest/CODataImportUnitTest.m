@@ -102,6 +102,76 @@
 /**
  *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
  */
+- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValuesAndInsertIDWithCustomizedBlock {
+    
+    
+    NSDictionary *dic  = @{
+                             @"data": @[
+                                     @{
+//                                         @"id"     : @1,
+                                         @"name"   : @"name 1",
+                                         @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                         },
+                                     @{
+//                                         @"id"     : @2,
+                                         @"name"   : @"name 2",
+                                         @"create_date"  : @"1990-12-30T12:00:00+07:00"
+                                         }
+                                     
+                                     ]
+                             };
+    
+    // Set the flag to YES
+    __block BOOL waitingForBlock = YES;
+    
+    static BOOL done = NO;
+    
+    static NSInteger counter = 1;
+    
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
+    [operation setWillCreateOrUpdateAnManagedObject:^NSDictionary *(__unsafe_unretained Class dataClass, NSDictionary * data) {
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:data];
+        
+        if ([NSStringFromClass(dataClass) isEqualToString:NSStringFromClass([Student class])]) {
+            [dic setObject:@(counter) forKey:@"id"];
+            
+            counter++;
+        }
+        
+        return [dic copy];
+    }];
+    
+    operation.shouldSaveToPersistentStore = NO;
+    operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
+        
+        
+        XCTAssertEqual(results.count, 2);
+        
+        [self assertNoObjectsInPersistenstore:results];
+        
+        done = YES;
+        
+    };
+    
+    
+    [[UnitTestCoreDataQueue sharedQueue] addOperation:operation];
+    
+    while(waitingForBlock) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        
+        if (done) {
+            break;
+        }
+    }
+    
+}
+
+
+/**
+ *  Test case: Import array items, have distinct primary key values and without set default primary key for class Student
+ */
 - (void)testImportArrayStudentDataWithDistinctPrimaryKeyValuesWithShouldSaveToPersistentStoreIsNO{
     
     
@@ -223,7 +293,7 @@
  * Test case: Import Student array items with have the same primary key value
  */
 
-- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValues {
+- (void)testImportArrayStudentDataWithoutDistinctPrimaryKeyValues{
     
     NSDictionary *dic  = @{
                            @"data": @[

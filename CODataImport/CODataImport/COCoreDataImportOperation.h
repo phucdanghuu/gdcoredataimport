@@ -37,8 +37,9 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
  */
 @property (nonatomic, assign) BOOL shouldSaveToPersistentStore;
 @property (nonatomic) BOOL willCleanupEverything;
-@property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 
+- (void)setCustomizedDataBeforeCreateOrUpdateAnManagedObjectBlock:(NSDictionary *(^)(__unsafe_unretained Class, NSDictionary *))customizedDataBeforeCreateOrUpdateAnManagedObjectBlock;
+- (void)setCompletionBlockWithResults:(void (^)(NSArray *, NSError *))completionBlockWithResults;
 
 - (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
