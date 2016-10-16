@@ -13,6 +13,8 @@
 		6E1BF6BC1C479B0B00E33462 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 		6E2229661BE85D3C009A0C50 /* COCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229611BE85D3C009A0C50 /* COCoreDataBlockOperation.m */; };
 		6E2229681BE85D3C009A0C50 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */; };
+		6E30D1F61DB3945F005A8CDE /* Room_NoID+CoreDataClass.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E30D1F31DB3945F005A8CDE /* Room_NoID+CoreDataClass.m */; };
+		6E30D1F71DB3945F005A8CDE /* Room_NoID+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E30D1F51DB3945F005A8CDE /* Room_NoID+CoreDataProperties.m */; };
 		6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
 		6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */; };
 		6E7310E71D96F51300C2CF61 /* SmallSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7310E61D96F51300C2CF61 /* SmallSample.m */; };
@@ -64,6 +66,10 @@
 		6E2229611BE85D3C009A0C50 /* COCoreDataBlockOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCoreDataBlockOperation.m; sourceTree = "<group>"; };
 		6E2229641BE85D3C009A0C50 /* COCoreDataQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCoreDataQueue.h; sourceTree = "<group>"; };
 		6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCoreDataQueue.m; sourceTree = "<group>"; };
+		6E30D1F21DB3945F005A8CDE /* Room_NoID+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room_NoID+CoreDataClass.h"; sourceTree = "<group>"; };
+		6E30D1F31DB3945F005A8CDE /* Room_NoID+CoreDataClass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Room_NoID+CoreDataClass.m"; sourceTree = "<group>"; };
+		6E30D1F41DB3945F005A8CDE /* Room_NoID+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room_NoID+CoreDataProperties.h"; sourceTree = "<group>"; };
+		6E30D1F51DB3945F005A8CDE /* Room_NoID+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Room_NoID+CoreDataProperties.m"; sourceTree = "<group>"; };
 		6E4105B41BE8730700151BDB /* CODataImport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CODataImport.h; sourceTree = "<group>"; };
 		6E4105B51BE8A01500151BDB /* COCoreDataImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = COCoreDataImportOperation.h; sourceTree = "<group>"; };
 		6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = COCoreDataImportOperation.m; sourceTree = "<group>"; };
@@ -143,6 +149,10 @@
 		6E1BF6B41C47897E00E33462 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				6E30D1F21DB3945F005A8CDE /* Room_NoID+CoreDataClass.h */,
+				6E30D1F31DB3945F005A8CDE /* Room_NoID+CoreDataClass.m */,
+				6E30D1F41DB3945F005A8CDE /* Room_NoID+CoreDataProperties.h */,
+				6E30D1F51DB3945F005A8CDE /* Room_NoID+CoreDataProperties.m */,
 				6ED5E67B1C4CE4BD002973EC /* Room_Student+CoreDataProperties.h */,
 				6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */,
 				6ED5E67D1C4CE4BD002973EC /* Room_Student.h */,
@@ -394,10 +404,12 @@
 				6E1BF69D1C47619900E33462 /* CODataImportUnitTest.m in Sources */,
 				6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */,
 				6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */,
+				6E30D1F61DB3945F005A8CDE /* Room_NoID+CoreDataClass.m in Sources */,
 				6ED3DBB01C47A86000DA284B /* Student+CoreDataProperties.m in Sources */,
 				6ED3DBB21C47A86000DA284B /* Student.m in Sources */,
 				6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */,
 				6E7310E71D96F51300C2CF61 /* SmallSample.m in Sources */,
+				6E30D1F71DB3945F005A8CDE /* Room_NoID+CoreDataProperties.m in Sources */,
 				6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */,
 				6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */,
 				6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */,

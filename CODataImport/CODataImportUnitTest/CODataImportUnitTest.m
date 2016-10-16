@@ -623,8 +623,8 @@
     __block BOOL waitingForBlock = YES;
     
     static BOOL done = NO;
-    
-    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"] context:self.testingContext];
+//    [COCoreDataImportOperation alloc] initWithClass:<#(__unsafe_unretained Class)#> array:<#(NSArray<id<NSDictionaryConvertible>> *)#>
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room_Student class] array:dic[@"data"] context:self.testingContext];
     operation.shouldSaveToPersistentStore = NO;
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         

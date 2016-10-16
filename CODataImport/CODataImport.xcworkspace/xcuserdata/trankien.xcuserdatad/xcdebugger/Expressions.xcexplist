@@ -10,5 +10,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "-[COCoreDataImportOperation importObjectsOfClass:fromArray:]:COCoreDataImportOperation.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "[COCoreDataImportOperation primaryKeyFromClass:class]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>

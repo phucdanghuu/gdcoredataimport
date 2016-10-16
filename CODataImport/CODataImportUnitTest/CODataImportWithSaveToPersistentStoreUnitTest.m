@@ -645,7 +645,7 @@
     
     static BOOL done = NO;
     
-    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initNoIdObjectWithClass:[Room_Student class] array:dic[@"data"] context:self.testingContext];
+    COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Room_Student class] array:dic[@"data"] context:self.testingContext];
     
     operation.completionBlockWithResults = ^(NSArray *results, NSError *error) {
         

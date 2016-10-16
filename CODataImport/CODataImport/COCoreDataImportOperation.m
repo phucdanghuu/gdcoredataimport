@@ -37,7 +37,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 @property (nonatomic) BOOL willReturnCompletionBlockWithObjectsInParentContext;
 @property (nonatomic) BOOL isCleanAndCreate;
-@property (nonatomic) BOOL isNoId;
+//@property (nonatomic) BOOL isNoId;
 
 @end
 
@@ -91,48 +91,48 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return self;
 }
 
-- (id)initNoIdObjectWithContext:(NSManagedObjectContext *)context {
-    self = [self initWithContext:context];
-    
-    if (self) {
-        self.isNoId = YES;
-    }
-    
-    return self;
-}
-
-- (id)initNoIdObjectWithClass:(Class)class context:(NSManagedObjectContext *)context {
-    self = [self initNoIdObjectWithContext:context];
-    
-    if (self) {
-        self.dataClass = class;
-    }
-    
-    return self;
-}
-
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context {
-    self = [self initNoIdObjectWithClass:class context:context];
-    
-    if (self) {
-        self.dictionary = [dictionary asDictionary];
-
-    }
-    
-    return self;
-}
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context {
-    self = [self initNoIdObjectWithClass:class context:context];
-    
-    if (self) {
-      
-        
-        self.array = [self convertToArrayOfDictionary:array];
-        
-    }
-    
-    return self;
-}
+//- (id)initNoIdObjectWithContext:(NSManagedObjectContext *)context {
+//    self = [self initWithContext:context];
+//    
+//    if (self) {
+//        self.isNoId = YES;
+//    }
+//    
+//    return self;
+//}
+//
+//- (id)initNoIdObjectWithClass:(Class)class context:(NSManagedObjectContext *)context {
+//    self = [self initNoIdObjectWithContext:context];
+//    
+//    if (self) {
+//        self.dataClass = class;
+//    }
+//    
+//    return self;
+//}
+//
+//- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context {
+//    self = [self initNoIdObjectWithClass:class context:context];
+//    
+//    if (self) {
+//        self.dictionary = [dictionary asDictionary];
+//
+//    }
+//    
+//    return self;
+//}
+//- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context {
+//    self = [self initNoIdObjectWithClass:class context:context];
+//    
+//    if (self) {
+//      
+//        
+//        self.array = [self convertToArrayOfDictionary:array];
+//        
+//    }
+//    
+//    return self;
+//}
 
     - (NSArray<NSDictionary *> *)convertToArrayOfDictionary:(NSArray<id<NSDictionaryConvertible>> *)array {
         NSMutableArray *arr = [NSMutableArray array];
@@ -175,6 +175,10 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     return context;
 }
 
+- (BOOL)isNoId:(Class)class {
+    return [COCoreDataImportOperation primaryKeyFromClass:class] == nil;
+}
+
 - (void)main {
     NSDate *startDate = [NSDate date];
     [COCoreDataImportOperation log:[NSString stringWithFormat:@"--start-- %@", self]];
@@ -205,7 +209,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     
     if (self.dataClass) {
         
-        if (self.isNoId) {
+        if ([self isNoId:self.dataClass]) {
             if(self.dictionary) {
                 importedObjectInLocalContext = @[[self importNoIdObjectOfClass:self.dataClass fromData:self.dictionary]];
             } else if (self.array) {
@@ -483,12 +487,30 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
         // relationship
         if ([value isKindOfClass:[NSDictionary class]]) {
-            NSManagedObject *object = [self importObjectOfClass:NSClassFromString(classNameOfRelationship) fromData:value];
+            NSManagedObject *object = nil;
+            Class class = NSClassFromString(classNameOfRelationship);
 
+            if ([COCoreDataImportOperation primaryKeyFromClass:class] != nil) {
+                object = [self importObjectOfClass:NSClassFromString(classNameOfRelationship) fromData:value];
+                
+            } else {
+                object = [self importNoIdObjectOfClass:class fromData:value];
+            }
+            
+            
             [managedObject setValue:object forKey:key];
         }else if([value isKindOfClass:[NSArray class]]) {
-            NSSet *set = [NSSet setWithArray:[self importObjectsOfClass:NSClassFromString(classNameOfRelationship) fromArray:value]];
-
+            Class class = NSClassFromString(classNameOfRelationship);
+            
+            NSArray *array = [NSArray array];
+            if ([COCoreDataImportOperation primaryKeyFromClass:class] != nil) {
+                array = [self importObjectsOfClass:class fromArray:value];
+                
+            } else {
+                array = [self importNoIdObjectOfClass:class fromArray:value];
+            }
+            
+            NSSet *set = [NSSet setWithArray:array];
             [managedObject setValue:set forKey:key];
 
         }
@@ -662,7 +684,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 }
 
 + (NSString *)primaryKey {
-    return @"id";
+    return nil;
 }
 
 + (id)mapping {
@@ -750,26 +772,26 @@ static BOOL showLog = YES;
     
     return self;
 }
-
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary {
-    self = [self initNoIdObjectWithClass:class dictionary:dictionary context:DefaultContext];
-    
-    if (self) {
-        
-    }
-    
-    return self;
-}
-// to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array {
-    self = [self initNoIdObjectWithClass:class array:array context:DefaultContext];
-    
-    if (self) {
-        
-    }
-    
-    return self;
-}
+//
+//- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary {
+//    self = [self initNoIdObjectWithClass:class dictionary:dictionary context:DefaultContext];
+//    
+//    if (self) {
+//        
+//    }
+//    
+//    return self;
+//}
+//// to create new object without id (so that we will wait for the id to arrive later
+//- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array {
+//    self = [self initNoIdObjectWithClass:class array:array context:DefaultContext];
+//    
+//    if (self) {
+//        
+//    }
+//    
+//    return self;
+//}
 
 // to create new object without id (so that we will wait for the id to arrive later
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array willCleanupEverything:(BOOL)willCleanupEverything {

@@ -43,9 +43,9 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 - (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
+//- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary context:(NSManagedObjectContext *)context;
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
+//- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context;
 
 // to create new object without id (so that we will wait for the id to arrive later
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array context:(NSManagedObjectContext *)context
@@ -72,9 +72,9 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 - (id)initWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary;
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array;
 
-- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary;
+//- (id)initNoIdObjectWithClass:(Class)class dictionary:(id<NSDictionaryConvertible>)dictionary;
 // to create new object without id (so that we will wait for the id to arrive later
-- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array;
+//- (id)initNoIdObjectWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array;
 
 // to create new object without id (so that we will wait for the id to arrive later
 - (id)initWithClass:(Class)class array:(NSArray<id<NSDictionaryConvertible>> *)array willCleanupEverything:(BOOL)willCleanupEverything;
