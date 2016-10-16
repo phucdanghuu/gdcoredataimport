@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,8 +14,8 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "01A7CB8864AF5F7DE1CAE696FB343143"
-               BuildableName = "libPods-CODataImport.a"
+               BlueprintIdentifier = "17FDA04A8A0E49E035CF7CEBBCC80576"
+               BuildableName = "Pods_CODataImport.framework"
                BlueprintName = "Pods-CODataImport"
                ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
@@ -45,8 +45,8 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "01A7CB8864AF5F7DE1CAE696FB343143"
-            BuildableName = "libPods-CODataImport.a"
+            BlueprintIdentifier = "17FDA04A8A0E49E035CF7CEBBCC80576"
+            BuildableName = "Pods_CODataImport.framework"
             BlueprintName = "Pods-CODataImport"
             ReferencedContainer = "container:Pods.xcodeproj">
          </BuildableReference>
