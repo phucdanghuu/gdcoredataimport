@@ -22,6 +22,15 @@
 
 @end
 
+
+@protocol CODateFormatter <NSObject>
+
+- (NSDate *)dateFromString:(NSString *)dateString;
+
+@end
+
+
+
 /**
  *  Did notification will be posted if saveToPersistenStore has any problems
  */
@@ -60,7 +69,7 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 + (NSString *)defaultDateFormat;
 + (void) setDefaultDateFormat:(NSString *)dateFormat;
 
-+ (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat;
+//+ (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat;
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat;
 
 + (id)mapping;

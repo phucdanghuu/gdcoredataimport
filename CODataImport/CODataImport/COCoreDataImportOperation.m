@@ -13,6 +13,22 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
 #define DefaultContext [NSManagedObjectContext MR_defaultContext]
 
+
+@interface CODefaultDateFormatter : NSObject<CODateFormatter>
+
+
+
+@end
+
+@implementation CODefaultDateFormatter
+
+
+- (NSDate *)dateFromString:(NSString *)dateString {
+    return [COCoreDataImportOperation dateFromString:dateString formatDate:[COCoreDataImportOperation defaultDateFormat]];
+}
+
+@end
+
 @implementation NSDictionary (NSDictionaryConvertible)
 
 - (NSDictionary *)asDictionary {
@@ -38,7 +54,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @property (nonatomic) BOOL willReturnCompletionBlockWithObjectsInParentContext;
 @property (nonatomic) BOOL isCleanAndCreate;
 //@property (nonatomic) BOOL isNoId;
-
+@property (nonatomic, strong) id<CODateFormatter> dateFormatter;
 
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 @property (nonatomic, copy) NSDictionary* (^customizedDataBeforeCreateOrUpdateAnManagedObjectBlock)(Class dataClass, NSDictionary *data);
@@ -46,6 +62,14 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @end
 
 @implementation COCoreDataImportOperation
+
+- (id<CODateFormatter>)dateFormatter {
+    if (_dateFormatter == nil) {
+        _dateFormatter = [[CODefaultDateFormatter alloc] init];
+    }
+    
+    return _dateFormatter;
+}
 
 - (id)initWithContext:(NSManagedObjectContext *)context {
     self = [super init];
@@ -56,6 +80,8 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         self.willCleanupEverything = NO;
         
         self.dataImportContext = [self contextWithParentContext:context];
+        
+        self.dateFormatter = [[CODefaultDateFormatter alloc] init];
     }
     
     return self;
@@ -578,9 +604,9 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         }
     }else if (classNameOfAttribute.length != 0) {
         if ([classNameOfAttribute isEqualToString:@"NSDate"]) {
-            NSDate *date = [COCoreDataImportOperation dateFromString:value formatDate:[COCoreDataImportOperation defaultDateFormat]];
+            NSDate *date = [self.dateFormatter dateFromString:value];
             [managedObject setValue:date forKey:key];
-        }else if([classNameOfAttribute isEqualToString:@"NSNumber"]&&
+        }else if([classNameOfAttribute isEqualToString:@"NSNumber"] &&
                  ![value isEqual:[NSNull null]]) {
             NSNumber *number = nil;
             if ([value isKindOfClass:[NSNumber class]]) {
@@ -756,14 +782,14 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 }
 
 
-+ (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat {
-
-    NSDateFormatter *formatter = [self dateFormatter];
-    //    formatter.locale = [NSLocale currentLocale];
-    //    formatter.timeZone = [NSTimeZone systemTimeZone];
-    formatter.dateFormat = dateFormat;
-    return [formatter stringFromDate:date];
-}
+//+ (NSString *)stringFromDate:(NSDate *)date formatDate:(NSString *)dateFormat {
+//
+//    NSDateFormatter *formatter = [self dateFormatter];
+//    //    formatter.locale = [NSLocale currentLocale];
+//    //    formatter.timeZone = [NSTimeZone systemTimeZone];
+//    formatter.dateFormat = dateFormat;
+//    return [formatter stringFromDate:date];
+//}
 
 
 + (NSDate *)dateFromString:(NSString *)dateString formatDate:(NSString *)dateFormat {

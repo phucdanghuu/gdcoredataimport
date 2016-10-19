@@ -129,7 +129,7 @@
     static NSInteger counter = 1;
     
     COCoreDataImportOperation *operation = [[COCoreDataImportOperation alloc] initWithClass:[Student class] array:dic[@"data"] context:self.testingContext];
-    [operation setWillCreateOrUpdateAnManagedObject:^NSDictionary *(__unsafe_unretained Class dataClass, NSDictionary * data) {
+    [operation setCustomizedDataBeforeCreateOrUpdateAnManagedObjectBlock:^NSDictionary *(__unsafe_unretained Class dataClass, NSDictionary * data) {
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionaryWithDictionary:data];
         
