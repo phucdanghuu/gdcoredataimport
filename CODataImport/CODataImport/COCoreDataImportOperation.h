@@ -25,7 +25,7 @@
 
 @protocol CODateFormatter <NSObject>
 
-- (NSDate *)dateFromString:(NSString *)dateString;
+- (NSDate *)dateFromObject:(id)object;
 
 @end
 

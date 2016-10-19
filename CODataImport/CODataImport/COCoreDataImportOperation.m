@@ -23,8 +23,18 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @implementation CODefaultDateFormatter
 
 
-- (NSDate *)dateFromString:(NSString *)dateString {
-    return [COCoreDataImportOperation dateFromString:dateString formatDate:[COCoreDataImportOperation defaultDateFormat]];
+- (NSDate *)dateFromObject:(id)object {
+    NSString *string = nil;
+    
+    if ([object isKindOfClass:[NSString class]]) {
+        string = object;
+    } else {
+        NSLog(@"");
+        
+        return nil;
+    }
+    
+    return [COCoreDataImportOperation dateFromString:string formatDate:[COCoreDataImportOperation defaultDateFormat]];
 }
 
 @end
@@ -603,7 +613,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
         }
     }else if (classNameOfAttribute.length != 0) {
         if ([classNameOfAttribute isEqualToString:@"NSDate"]) {
-            NSDate *date = [self.dateFormatter dateFromString:value];
+            NSDate *date = [self.dateFormatter dateFromObject:value];
             [managedObject setValue:date forKey:key];
         }else if([classNameOfAttribute isEqualToString:@"NSNumber"] &&
                  ![value isEqual:[NSNull null]]) {
