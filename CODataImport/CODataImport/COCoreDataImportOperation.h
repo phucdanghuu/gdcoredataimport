@@ -47,6 +47,13 @@ extern NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStor
 @property (nonatomic, assign) BOOL shouldSaveToPersistentStore;
 @property (nonatomic) BOOL willCleanupEverything;
 
+
+/**
+ Convert String to Date, If it is nil, default formatter is NSDateFormatter
+ */
+@property (nonatomic, strong) id<CODateFormatter> dateFormatter;
+
+
 - (void)setCustomizedDataBeforeCreateOrUpdateAnManagedObjectBlock:(NSDictionary *(^)(__unsafe_unretained Class, NSDictionary *))customizedDataBeforeCreateOrUpdateAnManagedObjectBlock;
 - (void)setCompletionBlockWithResults:(void (^)(NSArray *, NSError *))completionBlockWithResults;
 

@@ -54,7 +54,6 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 @property (nonatomic) BOOL willReturnCompletionBlockWithObjectsInParentContext;
 @property (nonatomic) BOOL isCleanAndCreate;
 //@property (nonatomic) BOOL isNoId;
-@property (nonatomic, strong) id<CODateFormatter> dateFormatter;
 
 @property (nonatomic, copy) void (^completionBlockWithResults)(NSArray *results, NSError *error);
 @property (nonatomic, copy) NSDictionary* (^customizedDataBeforeCreateOrUpdateAnManagedObjectBlock)(Class dataClass, NSDictionary *data);
