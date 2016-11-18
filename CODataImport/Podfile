@@ -1,4 +1,5 @@
-source 'https://github.com/CocoaPods/Specs.git'
+#source 'https://github.com/CocoaPods/Specs.git'
+source 'https://ttkien@bitbucket.org/kientranprivate/magicalrecord-watchos.git'
 platform :ios, '8.0'
 
 use_frameworks!
@@ -8,9 +9,16 @@ project 'CODataImport'
 
 
 target "CODataImport" do
-  pod 'MagicalRecord', '~> 2.3'
+pod 'MagicalRecord', :git => 'https://ttkien@bitbucket.org/kientranprivate/magicalrecord-watchos.git', :branch => 'watchos_support'
+end
+
+
+target "CODataImport ForWatchOS" do
+    platform :watchos, '8.0'
+
+pod 'MagicalRecord', :git => 'https://ttkien@bitbucket.org/kientranprivate/magicalrecord-watchos.git', :branch => 'watchos_support'
 end
 
 target "CODataImportUnitTest" do
-  pod 'MagicalRecord', '~> 2.3'
+pod 'MagicalRecord', :git => 'https://ttkien@bitbucket.org/kientranprivate/magicalrecord-watchos.git', :branch => 'watchos_support'
 end

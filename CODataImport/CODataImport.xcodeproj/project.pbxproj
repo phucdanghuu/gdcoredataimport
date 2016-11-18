@@ -18,6 +18,10 @@
 		6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
 		6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */; };
 		6E7310E71D96F51300C2CF61 /* SmallSample.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E7310E61D96F51300C2CF61 /* SmallSample.m */; };
+		6E8031B61DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E8031B41DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		6E8031BA1DDEFAC200AFD1E0 /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
+		6E8031BB1DDEFAC500AFD1E0 /* COCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229611BE85D3C009A0C50 /* COCoreDataBlockOperation.m */; };
+		6E8031BC1DDEFAC800AFD1E0 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */; };
 		6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 		6EA261BC1C4C9B7900AC5316 /* Room+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */; };
 		6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261BB1C4C9B7900AC5316 /* Room.m */; };
@@ -30,6 +34,7 @@
 		6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67E1C4CE4BD002973EC /* Room_Student.m */; };
 		6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD9E41C4E582F00D43085 /* TestingUtils.m */; };
 		93E70871F99C8E7C20F49D25 /* Pods_CODataImportUnitTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */; };
+		B51A27A081432E1C52690DBF /* Pods_CODataImport_ForWatchOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 34654B3F9575BB02311E1230 /* Pods_CODataImport_ForWatchOS.framework */; };
 		D1196CFF9B3F3FD1501684D6 /* Pods_CODataImport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FB071B717855125B8A753DE /* Pods_CODataImport.framework */; };
 /* End PBXBuildFile section */
 
@@ -56,7 +61,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		065314428BEFB6D37F2A9EB7 /* Pods-DataImport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataImport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DataImport/Pods-DataImport.debug.xcconfig"; sourceTree = "<group>"; };
 		1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
+		34654B3F9575BB02311E1230 /* Pods_CODataImport_ForWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CODataImport_ForWatchOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6225A32C0FDE3372A053FE38 /* Pods-DataImport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DataImport.release.xcconfig"; path = "Pods/Target Support Files/Pods-DataImport/Pods-DataImport.release.xcconfig"; sourceTree = "<group>"; };
+		6E11ED741DDEE6E9002CA9DF /* MagicalRecord.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MagicalRecord.framework; path = "../../../../../../../Users/trankien/Library/Developer/Xcode/DerivedData/CODataImport-cmrinpwbahrsuueoajxbzughvihf/Build/Products/Debug-iphonesimulator/MagicalRecord/MagicalRecord.framework"; sourceTree = "<group>"; };
+		6E11ED761DDEEB53002CA9DF /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.1.sdk/System/Library/Frameworks/CoreData.framework; sourceTree = DEVELOPER_DIR; };
+		6E153E071DDEE18D00370D2B /* DataImport.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DataImport.h; sourceTree = "<group>"; };
+		6E153E081DDEE18D00370D2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CODataImportUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CODataImportUnitTest.m; sourceTree = "<group>"; };
 		6E1BF69E1C47619900E33462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -76,6 +88,9 @@
 		6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CODataImportWithSaveToPersistentStoreUnitTest.m; sourceTree = "<group>"; };
 		6E54870B1BB8F79C003E0D0A /* libCODataImport.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libCODataImport.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E7310E61D96F51300C2CF61 /* SmallSample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallSample.m; sourceTree = "<group>"; };
+		6E8031B21DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "CODataImport ForWatchOS.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E8031B41DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CODataImport ForWatchOS.h"; sourceTree = "<group>"; };
+		6E8031B51DDEFA9C00AFD1E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E84B7C31BE76F1B00BB5446 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		6EA261B81C4C9B7900AC5316 /* Room+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Room+CoreDataProperties.h"; sourceTree = "<group>"; };
 		6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Room+CoreDataProperties.m"; sourceTree = "<group>"; };
@@ -94,8 +109,11 @@
 		6EDDD9E31C4E582F00D43085 /* TestingUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TestingUtils.h; sourceTree = "<group>"; };
 		6EDDD9E41C4E582F00D43085 /* TestingUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TestingUtils.m; sourceTree = "<group>"; };
 		7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.release.xcconfig"; sourceTree = "<group>"; };
+		7B5995B8B5B73E33133F872B /* Pods-CODataImport ForWatchOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport ForWatchOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport ForWatchOS/Pods-CODataImport ForWatchOS.release.xcconfig"; sourceTree = "<group>"; };
 		7FB071B717855125B8A753DE /* Pods_CODataImport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CODataImport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CODataImportUnitTest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF234D4FA25FCF5169F55B5B /* Pods-CODataImport ForWatchOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport ForWatchOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport ForWatchOS/Pods-CODataImport ForWatchOS.debug.xcconfig"; sourceTree = "<group>"; };
+		B19227CA0F3E2086BA6BAEE3 /* Pods_DataImport.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DataImport.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.debug.xcconfig"; sourceTree = "<group>"; };
 		E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImport.release.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImport/Pods-CODataImport.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -120,16 +138,37 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E8031AE1DDEFA9C00AFD1E0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B51A27A081432E1C52690DBF /* Pods_CODataImport_ForWatchOS.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		2A890DB3D04C06BD5DCF8834 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6E11ED761DDEEB53002CA9DF /* CoreData.framework */,
+				6E11ED741DDEE6E9002CA9DF /* MagicalRecord.framework */,
 				7FB071B717855125B8A753DE /* Pods_CODataImport.framework */,
 				9B55B555CA97A999C3303A97 /* Pods_CODataImportUnitTest.framework */,
+				B19227CA0F3E2086BA6BAEE3 /* Pods_DataImport.framework */,
+				34654B3F9575BB02311E1230 /* Pods_CODataImport_ForWatchOS.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		6E153E061DDEE18D00370D2B /* DataImport */ = {
+			isa = PBXGroup;
+			children = (
+				6E153E071DDEE18D00370D2B /* DataImport.h */,
+				6E153E081DDEE18D00370D2B /* Info.plist */,
+			);
+			path = DataImport;
 			sourceTree = "<group>";
 		};
 		6E1BF69B1C47619900E33462 /* CODataImportUnitTest */ = {
@@ -178,6 +217,8 @@
 				6E84B7C31BE76F1B00BB5446 /* CoreData.framework */,
 				6E54870D1BB8F79C003E0D0A /* CODataImport */,
 				6E1BF69B1C47619900E33462 /* CODataImportUnitTest */,
+				6E153E061DDEE18D00370D2B /* DataImport */,
+				6E8031B31DDEFA9C00AFD1E0 /* CODataImport ForWatchOS */,
 				6E54870C1BB8F79C003E0D0A /* Products */,
 				F73F5B99B8AEBA8F3C8816CB /* Pods */,
 				2A890DB3D04C06BD5DCF8834 /* Frameworks */,
@@ -189,6 +230,7 @@
 			children = (
 				6E54870B1BB8F79C003E0D0A /* libCODataImport.a */,
 				6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */,
+				6E8031B21DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +249,15 @@
 			path = CODataImport;
 			sourceTree = "<group>";
 		};
+		6E8031B31DDEFA9C00AFD1E0 /* CODataImport ForWatchOS */ = {
+			isa = PBXGroup;
+			children = (
+				6E8031B41DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.h */,
+				6E8031B51DDEFA9C00AFD1E0 /* Info.plist */,
+			);
+			path = "CODataImport ForWatchOS";
+			sourceTree = "<group>";
+		};
 		6EDDD9E21C4E580F00D43085 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,11 +274,26 @@
 				E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */,
 				1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */,
 				7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */,
+				065314428BEFB6D37F2A9EB7 /* Pods-DataImport.debug.xcconfig */,
+				6225A32C0FDE3372A053FE38 /* Pods-DataImport.release.xcconfig */,
+				AF234D4FA25FCF5169F55B5B /* Pods-CODataImport ForWatchOS.debug.xcconfig */,
+				7B5995B8B5B73E33133F872B /* Pods-CODataImport ForWatchOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		6E8031AF1DDEFA9C00AFD1E0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E8031B61DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		6E1BF6991C47619900E33462 /* CODataImportUnitTest */ = {
@@ -270,6 +336,26 @@
 			productReference = 6E54870B1BB8F79C003E0D0A /* libCODataImport.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		6E8031B11DDEFA9C00AFD1E0 /* CODataImport ForWatchOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 6E8031B71DDEFA9C00AFD1E0 /* Build configuration list for PBXNativeTarget "CODataImport ForWatchOS" */;
+			buildPhases = (
+				18F45F9A1280508FD1C94C3D /* [CP] Check Pods Manifest.lock */,
+				6E8031AD1DDEFA9C00AFD1E0 /* Sources */,
+				6E8031AE1DDEFA9C00AFD1E0 /* Frameworks */,
+				6E8031AF1DDEFA9C00AFD1E0 /* Headers */,
+				6E8031B01DDEFA9C00AFD1E0 /* Resources */,
+				0BFC6E0A3F82A894C5E727A7 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CODataImport ForWatchOS";
+			productName = "CODataImport ForWatchOS";
+			productReference = 6E8031B21DDEFA9C00AFD1E0 /* CODataImport ForWatchOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -287,6 +373,11 @@
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = 73HL765W2D;
 					};
+					6E8031B11DDEFA9C00AFD1E0 = {
+						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 73HL765W2D;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 6E5487061BB8F79C003E0D0A /* Build configuration list for PBXProject "CODataImport" */;
@@ -303,6 +394,7 @@
 			targets = (
 				6E54870A1BB8F79C003E0D0A /* CODataImport */,
 				6E1BF6991C47619900E33462 /* CODataImportUnitTest */,
+				6E8031B11DDEFA9C00AFD1E0 /* CODataImport ForWatchOS */,
 			);
 		};
 /* End PBXProject section */
@@ -315,9 +407,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		6E8031B01DDEFA9C00AFD1E0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BFC6E0A3F82A894C5E727A7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CODataImport ForWatchOS/Pods-CODataImport ForWatchOS-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		18F45F9A1280508FD1C94C3D /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		1F6CAEA6FA21958AB5C8C4EC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,6 +555,16 @@
 				6E2229681BE85D3C009A0C50 /* COCoreDataQueue.m in Sources */,
 				6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */,
 				6ED3DBA91C47A84100DA284B /* Model.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		6E8031AD1DDEFA9C00AFD1E0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6E8031BB1DDEFAC500AFD1E0 /* COCoreDataBlockOperation.m in Sources */,
+				6E8031BA1DDEFAC200AFD1E0 /* COCoreDataImportOperation.m in Sources */,
+				6E8031BC1DDEFAC800AFD1E0 /* COCoreDataQueue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -585,6 +724,64 @@
 			};
 			name = Release;
 		};
+		6E8031B81DDEFA9C00AFD1E0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF234D4FA25FCF5169F55B5B /* Pods-CODataImport ForWatchOS.debug.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 73HL765W2D;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "CODataImport ForWatchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cogini.CODataImport-ForWatchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Debug;
+		};
+		6E8031B91DDEFA9C00AFD1E0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B5995B8B5B73E33133F872B /* Pods-CODataImport ForWatchOS.release.xcconfig */;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
+				DEVELOPMENT_TEAM = 73HL765W2D;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "CODataImport ForWatchOS/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.cogini.CODataImport-ForWatchOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+				WATCHOS_DEPLOYMENT_TARGET = 2.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -614,6 +811,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		6E8031B71DDEFA9C00AFD1E0 /* Build configuration list for PBXNativeTarget "CODataImport ForWatchOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				6E8031B81DDEFA9C00AFD1E0 /* Debug */,
+				6E8031B91DDEFA9C00AFD1E0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 

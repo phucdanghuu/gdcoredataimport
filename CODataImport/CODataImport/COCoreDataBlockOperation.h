@@ -7,7 +7,7 @@
 // version 0.2
 
 #import <Foundation/Foundation.h>
-#import "CODataImport.h"
+//#import "CODataImport.h"
 
 @interface COCoreDataBlockOperation : NSBlockOperation
 

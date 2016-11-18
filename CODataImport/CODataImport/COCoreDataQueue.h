@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CODataImport.h"
+//#import "CODataImport.h"
 
 @interface COCoreDataQueue : NSOperationQueue
 

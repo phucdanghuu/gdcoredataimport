@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "CODataImport.h"
+//#import "CODataImport.h"
 #import <CoreData/CoreData.h>
 
 @protocol NSDictionaryConvertible <NSObject>

@@ -7,6 +7,7 @@
 //
 
 #import "COCoreDataImportOperation.h"
+#import <MagicalRecord/MagicalRecord.h>
 
 NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore";
 
