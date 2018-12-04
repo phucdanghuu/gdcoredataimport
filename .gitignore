@@ -1,0 +1,42 @@
+# OS X Finder
+.DS_Store
+# Xcode per-user config
+*.mode1
+*.mode1v3
+*.mode2v3
+*.perspective
+*.perspectivev3
+*.pbxuser
+xcuserdata
+*.xccheckout
+# Build products
+build/
+*.o
+*.LinkFileList
+*.hmap
+# Automatic backup files
+*~.nib/
+*.swp
+*~
+*.dat
+*.dep
+# Cocoapods
+Pods
+# AppCode specific files
+.idea/
+*.iml
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the 
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://github.com/fastlane/fastlane/blob/master/fastlane/docs/Gitignore.md
+
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots

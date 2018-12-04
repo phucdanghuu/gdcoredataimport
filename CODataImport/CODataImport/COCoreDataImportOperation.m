@@ -693,6 +693,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
     NSDateFormatter *formatter = [self dateFormatter];
     //    formatter.locale = [NSLocale currentLocale];
     //    formatter.timeZone = [NSTimeZone systemTimeZone];
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
     formatter.dateFormat = dateFormat;
     return [formatter dateFromString:dateString];
 }
