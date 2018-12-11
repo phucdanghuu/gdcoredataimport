@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CODataImport"
-  s.version      = "0.6.3"
+  s.version      = "0.6.4"
   s.summary      = "A short description of CODataImport."
 
   # This description is used to generate tags and improve search results.
@@ -51,10 +51,10 @@ Pod::Spec.new do |s|
   #  profile URL.
   #
 
-  s.author             = { "Tran Kien" => "Kien Tran" }
-  # Or just: s.author    = "Tran Kien"
-  # s.authors            = { "Tran Kien" => "Kien Tran" }
-  # s.social_media_url   = "http://twitter.com/Tran Kien"
+  s.author             = { "Phuc Dang" => "Phuc Dang" }
+  # Or just: s.author    = "Phuc Dang"
+  # s.authors            = { "Phuc Dang" => "Phuc Dang" }
+  # s.social_media_url   = ""
 
   # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
   #
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :branch => "0.6.3" ,:tag => "#{s.version}" }
+  s.source       = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :branch => "v0.6.4" ,:tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
