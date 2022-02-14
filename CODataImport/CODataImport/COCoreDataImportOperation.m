@@ -418,7 +418,12 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
         if (objectId) {
             //Set primary key
-            [object setValue:objectId forKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+            if (object.entity.attributesByName[[COCoreDataImportOperation primaryKeyFromClass:class]].attributeType == NSStringAttributeType && ![object isKindOfClass:[NSString class]]) {
+                NSString *strValue = [NSString stringWithFormat:@"%@", objectId];
+                [object setValue:strValue forKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+            } else {
+                [object setValue:objectId forKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
+            }
         }
 
     }
