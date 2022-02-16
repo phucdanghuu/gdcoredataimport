@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
   #
 
   s.name         = "CODataImport"
-  s.version      = "0.6.5"
+  s.version      = "0.6.6"
   s.summary      = "A short description of CODataImport."
 
   # This description is used to generate tags and improve search results.
@@ -78,7 +78,7 @@ Pod::Spec.new do |s|
   #  Supports git, hg, bzr, svn and HTTP.
   #
 
-  s.source       = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :branch => "v0.6.5" ,:tag => "#{s.version}" }
+  s.source       = { :git => "https://gitlab.cogini.com/kien.tran/gdcoredataimport.git", :branch => "v0.6.6" ,:tag => "#{s.version}" }
 
 
   # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
