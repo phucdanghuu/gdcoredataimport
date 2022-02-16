@@ -291,14 +291,7 @@ NSString *kCOCoreDataImportOperationDidCatchErrorWhenSaveToPersistionStore = @"k
 
     NSMutableArray *sortedResults = [NSMutableArray arrayWithCapacity:array.count];
 
-    //create sort descriptor with ascending of pimary key
-//    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:[COCoreDataImportOperation primaryKeyFromClass:class] ascending:YES];
-
-//    NSArray *sortedArray = nil;
     if (array != nil && array.count != 0) {
-//        sortedArray = [array sortedArrayUsingDescriptors:@[descriptor]];
-
-        //Array of primary key
         NSArray *ids = [array valueForKey:[COCoreDataImportOperation primaryKeyFromClass:class]];
 
         //Managed Object Context Object in database with ids
