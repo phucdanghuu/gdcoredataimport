@@ -276,6 +276,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 6E5487021BB8F79C003E0D0A;
@@ -386,7 +387,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -399,7 +400,7 @@
 			buildSettings = {
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -489,6 +490,7 @@
 			baseConfigurationReference = CDD5A02ED387567EF7123BE8 /* Pods-CODataImport.debug.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -501,6 +503,7 @@
 			baseConfigurationReference = E61E423A01E1C5EC0502D981 /* Pods-CODataImport.release.xcconfig */;
 			buildSettings = {
 				DEFINES_MODULE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MACH_O_TYPE = mh_dylib;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
