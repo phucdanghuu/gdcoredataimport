@@ -1,6 +1,6 @@
-source 'https://cdn.cocoapods.org/'
-platform :ios, '7.0'
-xcodeproj 'CODataImport'
+source 'https://github.com/CocoaPods/Specs.git'
+
+platform :ios, '12.0'
 
 target "CODataImport" do
   pod 'MagicalRecord', '~> 2.3.2'
