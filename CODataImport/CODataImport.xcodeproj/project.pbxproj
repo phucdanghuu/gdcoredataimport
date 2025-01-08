@@ -7,38 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6E1BF69D1C47619900E33462 /* CODataImportUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */; };
-		6E1BF69F1C47619900E33462 /* libCODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E54870B1BB8F79C003E0D0A /* libCODataImport.a */; };
-		6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E1BF6B91C4798CE00E33462 /* UnitTestCoreDataQueue.m */; };
-		6E1BF6BC1C479B0B00E33462 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
 		6E2229661BE85D3C009A0C50 /* COCoreDataBlockOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229611BE85D3C009A0C50 /* COCoreDataBlockOperation.m */; };
 		6E2229681BE85D3C009A0C50 /* COCoreDataQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E2229651BE85D3C009A0C50 /* COCoreDataQueue.m */; };
 		6E4105B71BE8A01500151BDB /* COCoreDataImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4105B61BE8A01500151BDB /* COCoreDataImportOperation.m */; };
-		6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6E4FC9B61D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m */; };
 		6E84B7C41BE76F1B00BB5446 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E84B7C31BE76F1B00BB5446 /* CoreData.framework */; };
-		6EA261BC1C4C9B7900AC5316 /* Room+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261B91C4C9B7900AC5316 /* Room+CoreDataProperties.m */; };
-		6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EA261BB1C4C9B7900AC5316 /* Room.m */; };
 		6ED3DBA91C47A84100DA284B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3DBA71C47A84100DA284B /* Model.xcdatamodeld */; };
-		6ED3DBAA1C47A84100DA284B /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3DBA71C47A84100DA284B /* Model.xcdatamodeld */; };
-		6ED3DBB01C47A86000DA284B /* Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3DBAC1C47A86000DA284B /* Student+CoreDataProperties.m */; };
-		6ED3DBB21C47A86000DA284B /* Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED3DBAE1C47A86000DA284B /* Student.m */; };
-		6ED5E67A1C4CDA40002973EC /* COImportDataWithCleanUp.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E6791C4CDA40002973EC /* COImportDataWithCleanUp.m */; };
-		6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67C1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m */; };
-		6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */ = {isa = PBXBuildFile; fileRef = 6ED5E67E1C4CE4BD002973EC /* Room_Student.m */; };
-		6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 6EDDD9E41C4E582F00D43085 /* TestingUtils.m */; };
 		E40B7BF54FA3CFC1C91A7B48 /* libPods-CODataImport.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F417BC1920D64D99E4A30D2 /* libPods-CODataImport.a */; };
-		F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		6E1BF6A01C47619900E33462 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 6E5487031BB8F79C003E0D0A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6E54870A1BB8F79C003E0D0A;
-			remoteInfo = CODataImport;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		6E5487091BB8F79C003E0D0A /* CopyFiles */ = {
@@ -55,7 +30,6 @@
 /* Begin PBXFileReference section */
 		1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CODataImportUnitTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CODataImportUnitTest/Pods-CODataImportUnitTest.debug.xcconfig"; sourceTree = "<group>"; };
 		5928BB8821F88F46EA2E9C42 /* libPods-CODataImportUnitTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CODataImportUnitTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CODataImportUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6E1BF69C1C47619900E33462 /* CODataImportUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CODataImportUnitTest.m; sourceTree = "<group>"; };
 		6E1BF69E1C47619900E33462 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6E1BF6B81C4798CE00E33462 /* UnitTestCoreDataQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnitTestCoreDataQueue.h; sourceTree = "<group>"; };
@@ -93,16 +67,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		6E1BF6971C47619900E33462 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6E1BF69F1C47619900E33462 /* libCODataImport.a in Frameworks */,
-				6E1BF6BC1C479B0B00E33462 /* CoreData.framework in Frameworks */,
-				F2EA52A25C7E56585D2AE8A4 /* libPods-CODataImportUnitTest.a in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E5487081BB8F79C003E0D0A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -175,7 +139,6 @@
 			isa = PBXGroup;
 			children = (
 				6E54870B1BB8F79C003E0D0A /* libCODataImport.a */,
-				6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -217,25 +180,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		6E1BF6991C47619900E33462 /* CODataImportUnitTest */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 6E1BF6A41C47619900E33462 /* Build configuration list for PBXNativeTarget "CODataImportUnitTest" */;
-			buildPhases = (
-				2F9E1A973EE0F01E223F997D /* [CP] Check Pods Manifest.lock */,
-				6E1BF6961C47619900E33462 /* Sources */,
-				6E1BF6971C47619900E33462 /* Frameworks */,
-				6E1BF6981C47619900E33462 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				6E1BF6A11C47619900E33462 /* PBXTargetDependency */,
-			);
-			name = CODataImportUnitTest;
-			productName = CODataImportUnitTest;
-			productReference = 6E1BF69A1C47619900E33462 /* CODataImportUnitTest.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 		6E54870A1BB8F79C003E0D0A /* CODataImport */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 6E5487141BB8F79C003E0D0A /* Build configuration list for PBXNativeTarget "CODataImport" */;
@@ -263,9 +207,6 @@
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "";
 				TargetAttributes = {
-					6E1BF6991C47619900E33462 = {
-						CreatedOnToolsVersion = 7.2;
-					};
 					6E54870A1BB8F79C003E0D0A = {
 						CreatedOnToolsVersion = 7.0;
 					};
@@ -285,40 +226,11 @@
 			projectRoot = "";
 			targets = (
 				6E54870A1BB8F79C003E0D0A /* CODataImport */,
-				6E1BF6991C47619900E33462 /* CODataImportUnitTest */,
 			);
 		};
 /* End PBXProject section */
 
-/* Begin PBXResourcesBuildPhase section */
-		6E1BF6981C47619900E33462 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
 /* Begin PBXShellScriptBuildPhase section */
-		2F9E1A973EE0F01E223F997D /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-CODataImportUnitTest-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		8AFB5A57A3C6F943AA1315BB /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -340,25 +252,6 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		6E1BF6961C47619900E33462 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				6EA261BC1C4C9B7900AC5316 /* Room+CoreDataProperties.m in Sources */,
-				6E1BF69D1C47619900E33462 /* CODataImportUnitTest.m in Sources */,
-				6ED5E6801C4CE4BD002973EC /* Room_Student.m in Sources */,
-				6ED5E67F1C4CE4BD002973EC /* Room_Student+CoreDataProperties.m in Sources */,
-				6ED3DBB01C47A86000DA284B /* Student+CoreDataProperties.m in Sources */,
-				6ED3DBB21C47A86000DA284B /* Student.m in Sources */,
-				6E1BF6BA1C4798CE00E33462 /* UnitTestCoreDataQueue.m in Sources */,
-				6EDDD9E51C4E582F00D43085 /* TestingUtils.m in Sources */,
-				6EA261BD1C4C9B7900AC5316 /* Room.m in Sources */,
-				6E4FC9B81D49C45900D5C576 /* CODataImportWithSaveToPersistentStoreUnitTest.m in Sources */,
-				6ED3DBAA1C47A84100DA284B /* Model.xcdatamodeld in Sources */,
-				6ED5E67A1C4CDA40002973EC /* COImportDataWithCleanUp.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		6E5487071BB8F79C003E0D0A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -372,49 +265,7 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		6E1BF6A11C47619900E33462 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 6E54870A1BB8F79C003E0D0A /* CODataImport */;
-			targetProxy = 6E1BF6A01C47619900E33462 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin XCBuildConfiguration section */
-		6E1BF6A21C47619900E33462 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1FE5A5EE62C341B1A743B0D4 /* Pods-CODataImportUnitTest.debug.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Debug;
-		};
-		6E1BF6A31C47619900E33462 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7740DD3BCA64977871D0C429 /* Pods-CODataImportUnitTest.release.xcconfig */;
-			buildSettings = {
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = CODataImportUnitTest/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = TTK.CODataImportUnitTest;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-			};
-			name = Release;
-		};
 		6E5487121BB8F79C003E0D0A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -522,15 +373,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		6E1BF6A41C47619900E33462 /* Build configuration list for PBXNativeTarget "CODataImportUnitTest" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				6E1BF6A21C47619900E33462 /* Debug */,
-				6E1BF6A31C47619900E33462 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		6E5487061BB8F79C003E0D0A /* Build configuration list for PBXProject "CODataImport" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
