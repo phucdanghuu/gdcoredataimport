@@ -3,7 +3,7 @@ source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '12.0'
 
 target "CODataImport" do
-  pod 'MagicalRecord', '~> 2.3.2'
+  pod 'MagicalRecord', :git => 'https://github.com/phucdanghuu/MagicalRecord.git', :branch => 'master'
 end
 
 # Post-install hook to force iOS 12.0 for dependencies

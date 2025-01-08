@@ -1,18 +1,24 @@
 PODS:
-  - MagicalRecord (2.3.2):
-    - MagicalRecord/Core (= 2.3.2)
-  - MagicalRecord/Core (2.3.2)
+  - MagicalRecord (2.4.0):
+    - MagicalRecord/Core (= 2.4.0)
+  - MagicalRecord/Core (2.4.0)
 
 DEPENDENCIES:
-  - MagicalRecord (~> 2.3.2)
+  - MagicalRecord (from `https://github.com/phucdanghuu/MagicalRecord.git`, branch `master`)
 
-SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
-    - MagicalRecord
+EXTERNAL SOURCES:
+  MagicalRecord:
+    :branch: master
+    :git: https://github.com/phucdanghuu/MagicalRecord.git
+
+CHECKOUT OPTIONS:
+  MagicalRecord:
+    :commit: 17715750dc36c2b8e360f658c316ab71d333c2ec
+    :git: https://github.com/phucdanghuu/MagicalRecord.git
 
 SPEC CHECKSUMS:
-  MagicalRecord: 53bed74b4323b930992a725be713e53b37d19755
+  MagicalRecord: 1f22a766156474d9f46a9b1e1ce59ca9e37830fc
 
-PODFILE CHECKSUM: e20e8ad6adc1b06438296a4100dc8235d27fd49a
+PODFILE CHECKSUM: 613aa0c42c28bc2e79e2e398665ca02bdb414920
 
 COCOAPODS: 1.16.2
